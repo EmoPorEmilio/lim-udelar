@@ -1,0 +1,265 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "L LIM" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]: L
+        - generic [ref=e7]: LIM
+      - navigation [ref=e8]:
+        - link "FAQ" [ref=e9] [cursor=pointer]:
+          - /url: /faq
+        - link "PLAN" [ref=e10] [cursor=pointer]:
+          - /url: /curriculum
+        - link "MATERIALES" [ref=e11] [cursor=pointer]:
+          - /url: /materiales
+        - link "Ingresar con Google" [ref=e12] [cursor=pointer]:
+          - /url: /api/auth/google
+          - button "Ingresar con Google" [ref=e13]
+  - generic [ref=e14]:
+    - navigation [ref=e15]:
+      - generic [ref=e16]: Plan de Estudios
+      - generic [ref=e17]:
+        - button "Áreas de Formación" [ref=e18] [cursor=pointer]
+        - generic [ref=e19]: Semestres
+        - button "Semestre 1" [ref=e20] [cursor=pointer]
+        - button "Semestre 2" [ref=e21] [cursor=pointer]
+        - button "Semestre 3" [ref=e22] [cursor=pointer]
+        - button "Semestre 4" [ref=e23] [cursor=pointer]
+        - button "Semestre 5" [ref=e24] [cursor=pointer]
+        - button "Semestre 6" [ref=e25] [cursor=pointer]
+        - button "Semestre 7" [ref=e26] [cursor=pointer]
+        - button "Semestre 8" [ref=e27] [cursor=pointer]
+        - generic [ref=e28]: Egreso
+        - button "Perfil Profesional" [ref=e29] [cursor=pointer]
+      - link "Preguntas Frecuentes" [ref=e31] [cursor=pointer]:
+        - /url: /faq
+        - text: Preguntas Frecuentes
+        - img [ref=e32]
+    - main [ref=e34]:
+      - generic [ref=e35]:
+        - heading "Áreas de Formación" [level=2] [ref=e36]
+        - paragraph [ref=e37]: 4 áreas de formación, 8 semestres, 360 créditos.
+        - generic [ref=e38]:
+          - generic [ref=e39]:
+            - code [ref=e40]: ING
+            - generic [ref=e41]: Formación en Ingeniería
+            - generic [ref=e42]: Fundamentos de programación, matemáticas, estructuras de datos, procesamiento de señales, redes y aprendizaje automático.
+          - generic [ref=e43]:
+            - code [ref=e44]: ICM
+            - generic [ref=e45]: Información, Comunicación y Medios
+            - generic [ref=e46]: Teoría de la comunicación, narrativas audiovisuales, diseño de interacción, estudios de audiencia y gestión de contenidos.
+          - generic [ref=e47]:
+            - code [ref=e48]: CI
+            - generic [ref=e49]: Creatividad e Innovación
+            - generic [ref=e50]: Diseño visual, producción audiovisual, animación, experiencias inmersivas, prototipado y trabajo final de grado.
+          - generic [ref=e51]:
+            - code [ref=e52]: COMP
+            - generic [ref=e53]: Complementaria
+            - generic [ref=e54]: Inglés técnico, gestión de proyectos, electivas interdisciplinarias y formación transversal.
+      - generic [ref=e55]:
+        - heading "Semestre 1" [level=2] [ref=e56]
+        - generic [ref=e57]:
+          - generic [ref=e58]:
+            - code [ref=e59]: ING101
+            - generic [ref=e60]: Introducción a la Programación
+            - generic [ref=e61]: 12 cr
+          - generic [ref=e62]:
+            - code [ref=e63]: ING102
+            - generic [ref=e64]: Matemática I
+            - generic [ref=e65]: 12 cr
+          - generic [ref=e66]:
+            - code [ref=e67]: ICM101
+            - generic [ref=e68]: Introducción a la Comunicación
+            - generic [ref=e69]: 10 cr
+          - generic [ref=e70]:
+            - code [ref=e71]: CI101
+            - generic [ref=e72]: Taller de Diseño Visual
+            - generic [ref=e73]: 8 cr
+          - generic [ref=e74]:
+            - code [ref=e75]: COMP101
+            - generic [ref=e76]: Inglés Técnico I
+            - generic [ref=e77]: 6 cr
+      - generic [ref=e78]:
+        - heading "Semestre 2" [level=2] [ref=e79]
+        - generic [ref=e80]:
+          - generic [ref=e81]:
+            - code [ref=e82]: ING201
+            - generic [ref=e83]: Programación Avanzada
+            - generic [ref=e84]: 12 cr
+          - generic [ref=e85]:
+            - code [ref=e86]: ING202
+            - generic [ref=e87]: Matemática II
+            - generic [ref=e88]: 10 cr
+          - generic [ref=e89]:
+            - code [ref=e90]: ICM201
+            - generic [ref=e91]: Narrativas Audiovisuales
+            - generic [ref=e92]: 10 cr
+          - generic [ref=e93]:
+            - code [ref=e94]: CI201
+            - generic [ref=e95]: Producción Audiovisual I
+            - generic [ref=e96]: 8 cr
+          - generic [ref=e97]:
+            - code [ref=e98]: COMP201
+            - generic [ref=e99]: Inglés Técnico II
+            - generic [ref=e100]: 6 cr
+      - generic [ref=e101]:
+        - heading "Semestre 3" [level=2] [ref=e102]
+        - generic [ref=e103]:
+          - generic [ref=e104]:
+            - code [ref=e105]: ING301
+            - generic [ref=e106]: Estructuras de Datos
+            - generic [ref=e107]: 12 cr
+          - generic [ref=e108]:
+            - code [ref=e109]: ING302
+            - generic [ref=e110]: Probabilidad y Estadística
+            - generic [ref=e111]: 10 cr
+          - generic [ref=e112]:
+            - code [ref=e113]: ICM301
+            - generic [ref=e114]: Diseño de Interacción
+            - generic [ref=e115]: 10 cr
+          - generic [ref=e116]:
+            - code [ref=e117]: CI301
+            - generic [ref=e118]: Animación Digital
+            - generic [ref=e119]: 8 cr
+          - generic [ref=e120]:
+            - code [ref=e121]: COMP301
+            - generic [ref=e122]: Gestión de Proyectos
+            - generic [ref=e123]: 6 cr
+      - generic [ref=e124]:
+        - heading "Semestre 4" [level=2] [ref=e125]
+        - generic [ref=e126]:
+          - generic [ref=e127]:
+            - code [ref=e128]: ING401
+            - generic [ref=e129]: Bases de Datos
+            - generic [ref=e130]: 10 cr
+          - generic [ref=e131]:
+            - code [ref=e132]: ING402
+            - generic [ref=e133]: Procesamiento de Señales
+            - generic [ref=e134]: 10 cr
+          - generic [ref=e135]:
+            - code [ref=e136]: ICM401
+            - generic [ref=e137]: Estudios de Audiencia y Medios
+            - generic [ref=e138]: 10 cr
+          - generic [ref=e139]:
+            - code [ref=e140]: CI401
+            - generic [ref=e141]: Producción Audiovisual II
+            - generic [ref=e142]: 10 cr
+          - generic [ref=e143]:
+            - code [ref=e144]: COMP401
+            - generic [ref=e145]: Electiva I
+            - generic [ref=e146]: 6 cr
+      - generic [ref=e147]:
+        - heading "Semestre 5" [level=2] [ref=e148]
+        - generic [ref=e149]:
+          - generic [ref=e150]:
+            - code [ref=e151]: ING501
+            - generic [ref=e152]: Redes y Sistemas Distribuidos
+            - generic [ref=e153]: 10 cr
+          - generic [ref=e154]:
+            - code [ref=e155]: ING502
+            - generic [ref=e156]: Procesamiento de Imágenes
+            - generic [ref=e157]: 10 cr
+          - generic [ref=e158]:
+            - code [ref=e159]: ICM501
+            - generic [ref=e160]: Comunicación Digital
+            - generic [ref=e161]: 10 cr
+          - generic [ref=e162]:
+            - code [ref=e163]: CI501
+            - generic [ref=e164]: Experiencias Inmersivas (VR/AR)
+            - generic [ref=e165]: 10 cr
+          - generic [ref=e166]:
+            - code [ref=e167]: COMP501
+            - generic [ref=e168]: Electiva II
+            - generic [ref=e169]: 6 cr
+      - generic [ref=e170]:
+        - heading "Semestre 6" [level=2] [ref=e171]
+        - generic [ref=e172]:
+          - generic [ref=e173]:
+            - code [ref=e174]: ING601
+            - generic [ref=e175]: Aprendizaje Automático
+            - generic [ref=e176]: 10 cr
+          - generic [ref=e177]:
+            - code [ref=e178]: ING602
+            - generic [ref=e179]: Ingeniería de Software
+            - generic [ref=e180]: 10 cr
+          - generic [ref=e181]:
+            - code [ref=e182]: ICM601
+            - generic [ref=e183]: Gestión de Contenidos Digitales
+            - generic [ref=e184]: 10 cr
+          - generic [ref=e185]:
+            - code [ref=e186]: CI601
+            - generic [ref=e187]: Taller de Innovación Mediática
+            - generic [ref=e188]: 10 cr
+          - generic [ref=e189]:
+            - code [ref=e190]: COMP601
+            - generic [ref=e191]: Electiva III
+            - generic [ref=e192]: 6 cr
+      - generic [ref=e193]:
+        - heading "Semestre 7" [level=2] [ref=e194]
+        - generic [ref=e195]:
+          - generic [ref=e196]:
+            - code [ref=e197]: ING701
+            - generic [ref=e198]: Visualización de Datos
+            - generic [ref=e199]: 10 cr
+          - generic [ref=e200]:
+            - code [ref=e201]: ICM701
+            - generic [ref=e202]: Narrativas Transmedia
+            - generic [ref=e203]: 10 cr
+          - generic [ref=e204]:
+            - code [ref=e205]: CI701
+            - generic [ref=e206]: Trabajo Final de Grado I
+            - generic [ref=e207]: 15 cr
+          - generic [ref=e208]:
+            - code [ref=e209]: COMP701
+            - generic [ref=e210]: Electiva IV
+            - generic [ref=e211]: 6 cr
+      - generic [ref=e212]:
+        - heading "Semestre 8" [level=2] [ref=e213]
+        - generic [ref=e214]:
+          - generic [ref=e215]:
+            - code [ref=e216]: ING801
+            - generic [ref=e217]: Tópicos Avanzados en Ingeniería de Medios
+            - generic [ref=e218]: 10 cr
+          - generic [ref=e219]:
+            - code [ref=e220]: ICM801
+            - generic [ref=e221]: Seminario de Investigación en Medios
+            - generic [ref=e222]: 10 cr
+          - generic [ref=e223]:
+            - code [ref=e224]: CI801
+            - generic [ref=e225]: Trabajo Final de Grado II
+            - generic [ref=e226]: 15 cr
+          - generic [ref=e227]:
+            - code [ref=e228]: COMP801
+            - generic [ref=e229]: Electiva V
+            - generic [ref=e230]: 6 cr
+      - generic [ref=e231]:
+        - heading "Perfil Profesional" [level=2] [ref=e232]
+        - paragraph [ref=e233]: Áreas de desempeño profesional para egresados de la LIM.
+        - generic [ref=e234]:
+          - generic [ref=e235]:
+            - generic [ref=e236]: Experiencias Interactivas y Multimedia
+            - text: Diseño y desarrollo de experiencias interactivas, aplicaciones multimedia y contenidos digitales innovadores.
+          - generic [ref=e237]:
+            - generic [ref=e238]: Producción Audiovisual
+            - text: Producción, postproducción y distribución de contenidos audiovisuales en múltiples formatos y plataformas.
+          - generic [ref=e239]:
+            - generic [ref=e240]: Diseño UX/UI
+            - text: Diseño de interfaces y experiencia de usuario para productos digitales, aplicaciones y servicios.
+          - generic [ref=e241]:
+            - generic [ref=e242]: Videojuegos y Experiencias Inmersivas
+            - text: Desarrollo de videojuegos, experiencias de realidad virtual (VR) y realidad aumentada (AR).
+          - generic [ref=e243]:
+            - generic [ref=e244]: Datos y Visualización
+            - text: Análisis de datos, visualización de información y periodismo de datos.
+          - generic [ref=e245]:
+            - generic [ref=e246]: Innovación Mediática
+            - text: Gestión de proyectos de innovación en medios y consultoría en transformación digital.
+          - generic [ref=e247]:
+            - generic [ref=e248]: Investigación
+            - text: Investigación académica en comunicación, tecnología, medios digitales e inteligencia artificial aplicada.
+          - generic [ref=e249]:
+            - generic [ref=e250]: Transformación Digital
+            - text: Consultoría y liderazgo en procesos de transformación digital de organizaciones mediáticas.
+      - generic [ref=e251]:
+        - paragraph [ref=e252]: LIM — Grupo de Estudio
+        - paragraph [ref=e253]: FIC + Fing — Universidad de la República — Uruguay

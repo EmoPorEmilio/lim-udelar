@@ -1,0 +1,38 @@
+{
+  "name": "lim",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build && tsc --noEmit",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@internationalized/date": "^3.8.0",
+    "@internationalized/string": "^3.2.5",
+    "@proyecto-viviana/solid-stately": "^0.2.4",
+    "@proyecto-viviana/solidaria": "^0.2.5",
+    "@proyecto-viviana/solidaria-components": "^0.2.5",
+    "@proyecto-viviana/ui": "^0.3.5",
+    "@tanstack/solid-router": "^1.143.6",
+    "@tanstack/solid-router-devtools": "^1.143.6",
+    "@tanstack/solid-start": "^1.143.6",
+    "drizzle-orm": "^0.44.7",
+    "drizzle-zod": "^0.8.3",
+    "solid-js": "^1.9.10",
+    "zod": "^4.2.1"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.19.0",
+    "@deno/vite-plugin": "^1.0.6",
+    "@tailwindcss/vite": "^4.1.18",
+    "@types/node": "^22.19.3",
+    "drizzle-kit": "^0.31.8",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.0",
+    "vite-plugin-solid": "^2.11.10",
+    "vite-tsconfig-paths": "^5.1.4"
+  }
+}

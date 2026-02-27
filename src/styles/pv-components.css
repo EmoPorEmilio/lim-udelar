@@ -1,0 +1,2070 @@
+/*
+ * Viviana UI Component Styles
+ *
+ * Pure CSS component styles that use theme CSS variables.
+ * These styles work with any theme that defines the required variables.
+ */
+
+/* ===== BASE TYPOGRAPHY ===== */
+/* Sen = body text, paragraphs, descriptions */
+/* Jost = titles, headings, labels, buttons */
+
+.font-sen {
+  font-family: 'Sen', sans-serif;
+}
+
+.font-jost {
+  font-family: 'Jost', sans-serif;
+}
+
+/* Base body font */
+.vui-body {
+  font-family: 'Sen', sans-serif;
+}
+
+/* Titles and headings */
+.vui-title {
+  font-family: 'Jost', sans-serif;
+}
+
+/* ===== CUSTOM SHADOWS ===== */
+.drop-shadow-title-card {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.drop-shadow-logo {
+  filter: drop-shadow(0 0 10px rgba(255, 160, 213, 0.8));
+}
+
+
+/* ===== BUTTON COMPONENT ===== */
+.vui-button {
+  position: relative;
+  font-family: var(--font-title);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  text-transform: uppercase;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+/* Shimmer overlay for hover effect */
+.vui-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.vui-button:hover::before {
+  transform: translateX(100%);
+}
+
+.vui-button:focus-visible {
+  outline: none;
+  filter: drop-shadow(0 0 6px var(--color-accent-300));
+}
+
+.vui-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.vui-button:disabled::before {
+  display: none;
+}
+
+.vui-button.is-pressed {
+  transform: scale(0.97);
+}
+
+/* Size variants */
+.vui-button--sm {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.vui-button--md {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.vui-button--lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.125rem;
+}
+
+/* Full width */
+.vui-button--full-width {
+  width: 100%;
+}
+
+/* ===== FILL VARIANTS ===== */
+
+/* Primary = bg-primary-700, text-primary-200, border-bottom-primary-200 */
+.vui-button--fill.vui-button--primary {
+  background: var(--color-primary-700);
+  color: var(--color-primary-200);
+  border-bottom: 1px solid var(--color-primary-200);
+}
+
+/* Secondary = darker blue for AA-safe text contrast */
+.vui-button--fill.vui-button--secondary {
+  background: var(--color-primary-700);
+  color: var(--color-primary-100);
+}
+
+/* Accent = light pink background with dark foreground for contrast */
+.vui-button--fill.vui-button--accent {
+  background: var(--color-accent);
+  color: var(--color-surface);
+}
+
+.vui-button--fill.vui-button--accent:hover:not(:disabled) {
+  filter: drop-shadow(0 0 8px rgba(255, 160, 213, 0.5));
+}
+
+/* Positive = bg-success-600, text-success-100, border-success-400 */
+.vui-button--fill.vui-button--positive {
+  background: var(--color-success-600);
+  color: #ffffff;
+  border: 1px solid var(--color-success-400);
+}
+
+/* Negative = bg-danger-600, text-danger-100, border-danger-400 */
+.vui-button--fill.vui-button--negative {
+  background: var(--color-danger-600);
+  color: #ffffff;
+  border: 1px solid var(--color-danger-400);
+}
+
+/* Ghost = transparent, text-primary-300, hover:bg-bg-200 */
+.vui-button--fill.vui-button--ghost,
+.vui-button--outline.vui-button--ghost {
+  background: transparent;
+  color: var(--color-primary-300);
+}
+.vui-button--fill.vui-button--ghost:hover:not(:disabled),
+.vui-button--outline.vui-button--ghost:hover:not(:disabled) {
+  background: var(--color-bg-200);
+}
+
+/* Link = transparent, text-accent-200, hover:text-accent-300 */
+.vui-button--fill.vui-button--link,
+.vui-button--outline.vui-button--link {
+  background: transparent;
+  color: var(--color-accent-200);
+}
+.vui-button--fill.vui-button--link:hover:not(:disabled),
+.vui-button--outline.vui-button--link:hover:not(:disabled) {
+  color: var(--color-accent-300);
+}
+
+/* ===== OUTLINE VARIANTS ===== */
+
+/* Primary outline */
+.vui-button--outline.vui-button--primary {
+  background: var(--color-surface-elevated);
+  color: var(--color-primary-300);
+  border: 2px solid var(--color-primary-300);
+}
+
+/* Secondary outline = transparent, text-primary-300, border-primary-600 */
+.vui-button--outline.vui-button--secondary {
+  background: transparent;
+  color: var(--color-primary-300);
+  border: 1px solid var(--color-primary-600);
+}
+
+/* Accent outline = transparent, text-accent-200, border-accent */
+.vui-button--outline.vui-button--accent {
+  background: transparent;
+  color: var(--color-accent-200);
+  border: 1px solid var(--color-accent);
+}
+
+/* Positive outline = transparent, text-success-400, border-success-400 */
+.vui-button--outline.vui-button--positive {
+  background: transparent;
+  color: var(--color-success-400);
+  border: 1px solid var(--color-success-400);
+}
+
+/* Negative outline = transparent, text-danger-400, border-danger-400 */
+.vui-button--outline.vui-button--negative {
+  background: transparent;
+  color: var(--color-danger-400);
+  border: 1px solid var(--color-danger-400);
+}
+
+/* ===== ICON COMPONENT ===== */
+.vui-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vui-icon--button {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+}
+
+.vui-icon__main {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vui-icon__shadow {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+}
+
+/* ===== CHIP COMPONENT ===== */
+.vui-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.vui-chip--primary {
+  background: var(--color-primary-700);
+  color: var(--color-primary-100);
+  box-shadow: 0 2px 8px rgba(17, 88, 199, 0.4);
+  border-bottom: 1px solid var(--color-primary-200);
+}
+
+.vui-chip--accent {
+  background: var(--color-accent);
+  color: var(--color-bg-400);
+}
+
+.vui-chip--success {
+  background: var(--color-success-600);
+  color: #ffffff;
+}
+
+.vui-chip--warning {
+  background: var(--color-warning-600);
+  color: var(--color-warning-100);
+}
+
+.vui-chip--danger {
+  background: var(--color-danger-600);
+  color: #ffffff;
+}
+
+/* ===== BADGE COMPONENT ===== */
+.vui-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+}
+
+.vui-badge--primary {
+  background: var(--color-primary-700);
+  color: var(--color-primary-100);
+}
+
+.vui-badge--accent {
+  background: var(--color-accent);
+  color: var(--color-bg-400);
+}
+
+.vui-badge--success {
+  background: var(--color-success-600);
+  color: #ffffff;
+}
+
+.vui-badge--warning {
+  background: var(--color-warning-600);
+  color: var(--color-warning-100);
+}
+
+.vui-badge--danger {
+  background: var(--color-danger-600);
+  color: #ffffff;
+}
+
+/* ===== ALERT COMPONENT ===== */
+.vui-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border-width: 1px;
+}
+
+.vui-alert--info {
+  background: color-mix(in srgb, var(--color-primary-700) 20%, transparent);
+  border-color: var(--color-primary-600);
+  color: var(--color-primary-200);
+}
+
+.vui-alert--success {
+  background: color-mix(in srgb, var(--color-success-600) 20%, transparent);
+  border-color: var(--color-success-600);
+  color: var(--color-success-100);
+}
+
+.vui-alert--warning {
+  background: color-mix(in srgb, var(--color-warning-600) 20%, transparent);
+  border-color: var(--color-warning-600);
+  color: var(--color-warning-100);
+}
+
+.vui-alert--error {
+  background: color-mix(in srgb, var(--color-danger-600) 20%, transparent);
+  border-color: var(--color-danger-400);
+  color: var(--color-danger-100);
+}
+
+/* ===== AVATAR COMPONENT ===== */
+.vui-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  overflow: hidden;
+  background: var(--color-bg-300);
+  color: var(--color-primary-300);
+  font-weight: 600;
+}
+
+.vui-avatar--sm {
+  width: 2rem;
+  height: 2rem;
+  font-size: 0.75rem;
+}
+
+.vui-avatar--md {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 0.875rem;
+}
+
+.vui-avatar--lg {
+  width: 3rem;
+  height: 3rem;
+  font-size: 1rem;
+}
+
+.vui-avatar--xl {
+  width: 4rem;
+  height: 4rem;
+  font-size: 1.25rem;
+}
+
+/* ===== CARD COMPONENT ===== */
+.vui-card {
+  background: var(--color-bg-300);
+  border: 1px solid var(--color-primary-600);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.vui-card--accent-border {
+  border-bottom-color: var(--color-accent-500);
+}
+
+/* ===== GRADIENTS ===== */
+.hero-gradient {
+  background: linear-gradient(135deg, var(--color-bg-300) 0%, var(--color-bg-400) 100%);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-primary-300), var(--color-accent-300));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== PROSE/DOCS — Silapse angular aesthetic ===== */
+.prose {
+  max-width: 65ch;
+}
+
+.prose h1 {
+  font-family: 'Jost', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  padding-bottom: 10px;
+  padding-left: 12px;
+  border-left: 3px solid var(--color-accent);
+  border-bottom: 1px solid rgba(255, 160, 213, 0.25);
+  letter-spacing: -0.01em;
+  color: var(--color-primary-100);
+  filter: drop-shadow(0 0 4px rgba(255, 160, 213, 0.4));
+}
+
+.prose h2 {
+  font-family: 'Jost', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  padding-left: 10px;
+  border-left: 2px solid var(--color-primary-300);
+  color: var(--color-primary-200);
+}
+
+.prose h3 {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.prose p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+  font-size: 0.875rem;
+  color: var(--color-primary-300);
+}
+
+.prose code {
+  background: rgba(128, 204, 255, 0.08);
+  padding: 3px 8px;
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  font-weight: 500;
+  color: var(--color-primary-300);
+  border: 1px solid rgba(128, 204, 255, 0.25);
+  clip-path: polygon(3px 0, 100% 0, calc(100% - 3px) 100%, 0 100%);
+}
+
+.prose pre {
+  background: var(--color-bg-400);
+  color: var(--color-primary-100);
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+  border: 1px solid rgba(128, 204, 255, 0.1);
+  border-left: 3px solid var(--color-primary-500);
+}
+
+.prose pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+  border: none;
+  clip-path: none;
+}
+
+.prose ul, .prose ol {
+  padding-left: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.prose li {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--color-primary-300);
+  margin-bottom: 0.375rem;
+}
+
+.prose strong {
+  color: var(--color-primary-100);
+  font-weight: 600;
+}
+
+/* ===== SIDEBAR — Silapse flat navigation ===== */
+.sidebar-link {
+  position: relative;
+  display: block;
+  padding: 7px 14px;
+  border-left: 3px solid transparent;
+  color: var(--color-primary-400);
+  font-size: 0.8125rem;
+  font-family: 'Sen', sans-serif;
+  text-decoration: none;
+  transition: all 0.1s ease;
+}
+
+.sidebar-link:hover {
+  background: rgba(255, 160, 213, 0.08);
+  color: var(--color-primary-200);
+}
+
+.sidebar-link.active {
+  background: var(--color-accent);
+  border-left-color: var(--color-accent);
+  color: var(--color-bg-400);
+  font-weight: 600;
+}
+
+/* ===== LOGO COMPONENT ===== */
+.vui-logo {
+  display: inline-flex;
+  align-items: baseline;
+  font-family: 'Jost', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.vui-logo__first {
+  color: var(--color-primary-800);
+  font-weight: 300;
+}
+
+.vui-logo__second {
+  position: relative;
+  color: var(--color-primary-500);
+  font-weight: 900;
+  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.9);
+  paint-order: stroke fill;
+}
+
+.vui-logo__second::before {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  color: transparent;
+  -webkit-text-stroke: 0;
+  text-shadow: 4px 3px 0 var(--color-accent);
+}
+
+/* Logo size variants */
+.vui-logo--sm {
+  font-size: 2.5rem;
+}
+
+.vui-logo--md {
+  font-size: 3.5rem;
+}
+
+.vui-logo--lg {
+  font-size: 2.0rem;
+}
+
+.vui-logo--lg .vui-logo__second::before {
+  text-shadow: 5px 4px 0 var(--color-accent);
+}
+
+.vui-logo--xl {
+  font-size: 6rem;
+}
+
+.vui-logo--xl .vui-logo__second::before {
+  text-shadow: 6px 5px 0 var(--color-accent);
+}
+
+/* Inverted variant - first word gets the 3D effect, second word is muted */
+.vui-logo.vui-logo--inverted .vui-logo__first {
+  position: relative;
+  color: var(--color-primary-500);
+  font-weight: 900;
+  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.9);
+  paint-order: stroke fill;
+}
+
+.vui-logo.vui-logo--inverted .vui-logo__first::before {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  color: transparent;
+  -webkit-text-stroke: 0;
+  text-shadow: 4px 3px 0 var(--color-accent);
+}
+
+.vui-logo.vui-logo--inverted .vui-logo__second {
+  position: static;
+  color: var(--color-primary-800);
+  font-weight: 300;
+  -webkit-text-stroke: 0;
+  paint-order: normal;
+}
+
+.vui-logo.vui-logo--inverted .vui-logo__second::before {
+  content: none;
+}
+
+.vui-logo.vui-logo--inverted.vui-logo--lg .vui-logo__first::before {
+  text-shadow: 5px 4px 0 var(--color-accent);
+}
+
+.vui-logo.vui-logo--inverted.vui-logo--xl .vui-logo__first::before {
+  text-shadow: 6px 5px 0 var(--color-accent);
+}
+
+/* ===== HEADER COMPONENT ===== */
+.vui-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  padding-bottom: 24px;
+  background: linear-gradient(to bottom, var(--color-surface-elevated) 0%, var(--color-surface-elevated) 40%, transparent 100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.vui-header__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.vui-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vui-header__link {
+  font-family: var(--font-title);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-primary-300);
+  text-decoration: none;
+  padding: 6px 14px;
+  border: 2px solid var(--color-primary-300);
+  clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px);
+  transition: background 0.2s ease;
+}
+
+.vui-header__link:hover {
+  background: rgba(128, 204, 255, 0.12);
+}
+
+.vui-header__link--accent {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.vui-header__link--accent:hover {
+  background: rgba(255, 160, 213, 0.12);
+}
+
+.vui-header__link--active {
+  background: var(--color-primary-300);
+  color: var(--color-surface);
+}
+
+.vui-header__link--active:hover {
+  background: var(--color-primary-300);
+}
+
+.vui-header__link--active.vui-header__link--accent {
+  background: var(--color-accent);
+  color: var(--color-surface);
+}
+
+/* Header logo box */
+.vui-header__logo-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--color-surface);
+  border: 2px solid var(--color-accent);
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--color-accent);
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+  filter: drop-shadow(0 0 6px rgba(255, 160, 213, 0.4));
+}
+
+.vui-header__title {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--color-text);
+}
+
+/* ===== PAGE LAYOUT ===== */
+.vui-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--color-bg-100);
+  font-family: 'Sen', sans-serif;
+}
+
+/* Use this modifier for pages with fixed header where content shouldn't go behind it */
+.vui-page--with-header {
+  padding-top: 72px;
+}
+
+.vui-page h1,
+.vui-page h2,
+.vui-page h3,
+.vui-page h4,
+.vui-page h5,
+.vui-page h6 {
+  font-family: var(--font-title);
+}
+
+/* ===== LANDING PAGE LAYOUT ===== */
+.vui-landing {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--color-background);
+  font-family: var(--font-body);
+}
+
+/* Hero Section */
+.vui-hero {
+  min-height: 50vh;
+  padding-top: 7.5rem;
+  padding-bottom: 2rem;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vui-hero__container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 56rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  text-align: center;
+  width: 100%;
+}
+
+.vui-hero__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  margin-bottom: 1.5rem;
+  background: var(--color-accent);
+  color: var(--color-surface);
+  font-family: var(--font-title);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px);
+}
+
+.vui-hero__title {
+  font-family: var(--font-title);
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--color-text);
+  line-height: 1.1;
+}
+
+@media (min-width: 640px) {
+  .vui-hero__title {
+    font-size: 3.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .vui-hero__title {
+    font-size: 4.5rem;
+  }
+}
+
+.vui-hero__subtitle {
+  margin-top: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 42rem;
+  font-size: 1.25rem;
+  color: var(--color-text-secondary);
+  line-height: 1.75;
+}
+
+.vui-hero__subtitle--accent {
+  border-left: 3px solid var(--color-accent);
+  padding-left: 0.75rem;
+  text-align: left;
+}
+
+.vui-hero__actions {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Section */
+.vui-section {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.vui-section--alt {
+  background: var(--color-surface);
+}
+
+.vui-section__container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 72rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.vui-section__container--narrow {
+  max-width: 56rem;
+}
+
+.vui-section__header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.vui-section__title {
+  font-family: var(--font-title);
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.vui-section__description {
+  margin-top: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 42rem;
+  font-size: 1.125rem;
+  color: var(--color-text-secondary);
+}
+
+/* Feature Grid */
+.vui-feature-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 640px) {
+  .vui-feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .vui-feature-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Feature Card */
+.vui-feature-card {
+  padding: 1.5rem;
+  border: 2px solid var(--color-border);
+  background: var(--color-surface-elevated);
+  color: var(--color-text);
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+  transition: filter 0.2s ease, border-color 0.2s ease;
+}
+
+.vui-feature-card--alt {
+  background: var(--color-surface);
+  border-color: var(--color-border-muted);
+}
+
+.vui-feature-card:hover {
+  border-color: var(--color-accent);
+  filter: drop-shadow(0 0 8px rgba(255, 160, 213, 0.3));
+}
+
+.vui-feature-card__icon {
+  font-size: 1.875rem;
+  margin-bottom: 1rem;
+}
+
+.vui-feature-card__bar {
+  width: 3px;
+  height: 2rem;
+  flex-shrink: 0;
+  background: var(--color-accent);
+}
+
+.vui-feature-card__bar--primary {
+  background: var(--color-primary-300);
+}
+
+.vui-feature-card__title {
+  font-family: var(--font-title);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.vui-feature-card__description {
+  margin-top: 0.5rem;
+  color: var(--color-text-secondary);
+  line-height: 1.625;
+}
+
+/* Code Block */
+.vui-code-block {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+.vui-code-block__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface-elevated);
+}
+
+.vui-code-block__dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+}
+
+.vui-code-block__dot--red {
+  background: var(--color-danger-400);
+}
+
+.vui-code-block__dot--yellow {
+  background: var(--color-warning-400);
+}
+
+.vui-code-block__dot--green {
+  background: var(--color-success-400);
+}
+
+.vui-code-block__filename {
+  margin-left: 1rem;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.vui-code-block__content {
+  padding: 1.5rem;
+  overflow-x: auto;
+}
+
+.vui-code-block__code {
+  font-size: 0.875rem;
+  line-height: 1.625;
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+}
+
+/* Footer */
+.vui-footer {
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface-elevated);
+}
+
+.vui-footer__container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 72rem;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .vui-footer__container {
+    flex-direction: row;
+  }
+}
+
+.vui-footer__text {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.vui-footer__links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.vui-footer__link {
+  font-family: var(--font-title);
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  transition: color 0.15s;
+}
+
+.vui-footer__link:hover {
+  color: var(--color-text);
+}
+
+/* Gradient Text Utility */
+.vui-gradient-text {
+  background: linear-gradient(135deg, var(--color-primary-300), var(--color-accent-300));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== TOOLTIP COMPONENT ===== */
+.vui-tooltip {
+  position: relative;
+  display: inline-flex;
+}
+
+.vui-tooltip__trigger {
+  display: inline-flex;
+}
+
+.vui-tooltip__content {
+  position: absolute;
+  z-index: 10;
+  padding: 0.5rem 1rem;
+  background: var(--color-surface-elevated);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px);
+  font-family: var(--font-title);
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease-in-out, transform 0.15s ease-in-out;
+}
+
+.vui-tooltip__content--bottom {
+  top: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(0.25rem);
+}
+
+.vui-tooltip__content--top {
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(-0.25rem);
+}
+
+.vui-tooltip:hover .vui-tooltip__content {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ===== PROJECT CARD COMPONENT ===== */
+.vui-project-card {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-elevated);
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+  transition: background 0.15s ease-in-out, filter 0.15s ease;
+  text-decoration: none;
+}
+
+.vui-project-card:hover {
+  background: var(--color-surface);
+  filter: drop-shadow(0 0 6px rgba(255, 160, 213, 0.2));
+}
+
+.vui-project-card--sm {
+  height: 4rem;
+}
+
+.vui-project-card--md {
+  height: 6rem;
+}
+
+.vui-project-card--lg {
+  padding: 1rem;
+}
+
+.vui-project-card--inactive {
+  filter: grayscale(1);
+  background: var(--color-surface);
+}
+
+.vui-project-card--inactive:hover {
+  background: var(--color-surface);
+  filter: grayscale(1);
+}
+
+.vui-project-card__tooltip {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  z-index: 10;
+  padding: 0.5rem 1rem;
+  background: var(--color-surface-elevated);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px);
+  font-family: var(--font-title);
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.vui-project-card:hover .vui-project-card__tooltip {
+  opacity: 1;
+}
+
+.vui-project-card__image {
+  max-height: 2rem;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.vui-project-card--lg .vui-project-card__image {
+  max-height: none;
+  max-width: 300px;
+  width: 100%;
+}
+
+/* ===== LIGHT MODE OVERRIDES ===== */
+
+[data-theme="light"] .vui-button:focus-visible {
+  filter: drop-shadow(0 0 6px var(--color-accent-300));
+}
+
+[data-theme="light"] .vui-button--fill.vui-button--accent:hover:not(:disabled) {
+  filter: drop-shadow(0 0 8px rgba(160, 37, 88, 0.4));
+}
+
+[data-theme="light"] .drop-shadow-logo {
+  filter: drop-shadow(0 0 10px rgba(160, 37, 88, 0.6));
+}
+
+[data-theme="light"] .sidebar-link:hover {
+  background: rgba(160, 37, 88, 0.06);
+}
+
+[data-theme="light"] .sidebar-link.active {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+[data-theme="light"] .prose h1 {
+  filter: drop-shadow(0 0 4px rgba(160, 37, 88, 0.3));
+}
+
+[data-theme="light"] .prose code {
+  background: rgba(25, 80, 115, 0.08);
+  border-color: rgba(25, 80, 115, 0.2);
+}
+
+[data-theme="light"] .vui-logo__second {
+  -webkit-text-stroke: 2px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .vui-logo.vui-logo--inverted .vui-logo__first {
+  -webkit-text-stroke: 2px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .vui-feature-card:hover {
+  filter: drop-shadow(0 0 8px rgba(160, 37, 88, 0.2));
+}
+
+[data-theme="light"] .vui-code-block {
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.08));
+}
+
+[data-theme="light"] .vui-project-card:hover {
+  filter: drop-shadow(0 0 6px rgba(160, 37, 88, 0.15));
+}
+
+[data-theme="light"] .vui-header__link:hover {
+  background: rgba(117, 171, 199, 0.12);
+}
+
+[data-theme="light"] .vui-header__link--accent:hover {
+  background: rgba(223, 92, 154, 0.12);
+}
+
+[data-theme="light"] .vui-header__logo-box {
+  filter: drop-shadow(0 0 6px rgba(223, 92, 154, 0.3));
+}
+
+/* ══════════════════════════════════════════════
+   SILAPSE DESIGN SYSTEM
+   Angular clip-paths, glow effects, wire
+   borders, and brutalist UI components.
+   These use semantic variables from theme.css:
+   --color-surface, --color-text, --color-border, etc.
+   ══════════════════════════════════════════════ */
+
+/* ── Clip-path Utilities ── */
+
+.silapse-clip {
+  clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
+}
+
+.silapse-clip-sm {
+  clip-path: polygon(2px 0, 100% 0, calc(100% - 2px) 100%, 0 100%);
+}
+
+.silapse-clip-lg {
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+}
+
+.silapse-clip-xl {
+  clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+}
+
+/* Box clip-path — cuts top-left and bottom-right corners (6-point polygon) */
+.silapse-clip-box {
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+
+.silapse-clip-box-sm {
+  clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px);
+}
+
+.silapse-clip-box-lg {
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.silapse-clip-box-xl {
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+
+/* ── Glow Effects ── */
+
+.silapse-glow-blue {
+  filter: drop-shadow(0 0 4px var(--color-primary-300));
+}
+
+.silapse-glow-pink {
+  filter: drop-shadow(0 0 4px var(--color-accent-300));
+}
+
+.silapse-glow-blue-strong {
+  filter: drop-shadow(0 0 8px var(--color-primary-300));
+}
+
+.silapse-glow-pink-strong {
+  filter: drop-shadow(0 0 8px var(--color-accent-300));
+}
+
+/* ── Wire Borders ── */
+
+.silapse-border-bottom {
+  border-bottom: 2px solid var(--color-accent-300);
+}
+
+.silapse-border-left {
+  border-left: 3px solid var(--color-accent-300);
+}
+
+.silapse-border-top {
+  border-top: 2px solid var(--color-accent-300);
+}
+
+.silapse-border-blue {
+  border-color: var(--color-primary-300);
+}
+
+/* ── Diamond Indicator ── */
+
+.silapse-diamond {
+  width: 6px;
+  height: 6px;
+  transform: rotate(45deg);
+  background: var(--color-accent-300);
+}
+
+.silapse-diamond-blue {
+  background: var(--color-primary-300);
+}
+
+/* ── Interactive States ── */
+
+.silapse-interactive {
+  transition: all 0.15s ease;
+}
+
+.silapse-interactive:hover {
+  filter: drop-shadow(0 0 4px var(--color-accent-300));
+}
+
+.silapse-active {
+  background: var(--color-accent-100);
+  filter: drop-shadow(0 0 6px var(--color-accent-300));
+}
+
+/* ── Button Base (clip-path utility) ── */
+
+.silapse-button {
+  clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
+  transition: all 0.15s ease;
+  border: none;
+}
+
+.silapse-button:hover {
+  filter: drop-shadow(0 0 4px var(--color-accent-300));
+}
+
+.silapse-button:active,
+.silapse-button[data-pressed="true"] {
+  filter: drop-shadow(0 0 6px var(--color-accent-300));
+}
+
+/* ── Panel ── */
+
+.silapse-panel {
+  border-left: 3px solid var(--color-accent-300);
+  background: var(--color-surface);
+}
+
+.silapse-panel-blue {
+  border-left-color: var(--color-primary-300);
+}
+
+/* ── Dialog ── */
+
+.silapse-dialog {
+  clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+  border: 2px solid var(--color-accent-300);
+  background: var(--color-surface);
+}
+
+.silapse-dialog-backdrop {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+}
+
+/* ── Tree Item ── */
+
+.silapse-tree-item {
+  transition: all 0.1s ease;
+}
+
+.silapse-tree-item:hover {
+  background: var(--color-bg-300);
+}
+
+.silapse-tree-item[data-selected="true"] {
+  background: var(--color-accent-100);
+  border-left: 2px solid var(--color-accent-300);
+}
+
+/* ── Toolbar ── */
+
+.silapse-toolbar {
+  border-bottom: 2px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.silapse-toolbar-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--color-accent-300);
+  margin: 0 8px;
+}
+
+/* ── Kbd ── */
+
+.silapse-kbd {
+  clip-path: polygon(2px 0, 100% 0, calc(100% - 2px) 100%, 0 100%);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 2px 6px;
+  background: var(--color-bg-300);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+
+.silapse-kbd-accent {
+  background: var(--color-accent-100);
+  color: var(--color-accent-300);
+  border-color: var(--color-accent-300);
+}
+
+/* ── Button Component ── */
+
+.silapse-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 2px solid var(--color-border);
+  background: var(--color-surface-elevated);
+  color: var(--color-text);
+  clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
+  transition: all 0.15s ease;
+}
+
+.silapse-btn:hover {
+  border-color: var(--color-accent-300);
+  filter: drop-shadow(0 0 4px var(--color-accent-300));
+}
+
+.silapse-btn:active {
+  background: var(--color-accent-100);
+}
+
+.silapse-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: none;
+}
+
+.silapse-btn--primary {
+  background: var(--color-accent-300);
+  border-color: var(--color-accent-300);
+  color: var(--color-background);
+}
+
+.silapse-btn--primary:hover {
+  background: var(--color-accent-400);
+  filter: drop-shadow(0 0 6px var(--color-accent-300));
+}
+
+.silapse-btn--secondary {
+  background: var(--color-surface-elevated);
+  border-color: var(--color-border);
+}
+
+.silapse-btn--danger {
+  background: var(--color-danger);
+  border-color: var(--color-danger);
+  color: white;
+}
+
+.silapse-btn--danger:hover {
+  filter: drop-shadow(0 0 4px var(--color-danger));
+}
+
+.silapse-btn--accent {
+  background: var(--color-primary-300);
+  border-color: var(--color-primary-300);
+  color: var(--color-background);
+}
+
+.silapse-btn--accent:hover {
+  filter: drop-shadow(0 0 6px var(--color-primary-300));
+}
+
+/* ── Badge Component ── */
+
+.silapse-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  clip-path: polygon(3px 0, 100% 0, calc(100% - 3px) 100%, 0 100%);
+}
+
+.silapse-badge--primary {
+  background: var(--color-primary-300);
+  color: var(--color-background);
+}
+
+.silapse-badge--accent {
+  background: var(--color-accent-300);
+  color: var(--color-background);
+}
+
+.silapse-badge--success {
+  background: var(--color-success);
+  color: var(--color-background);
+}
+
+.silapse-badge--warning {
+  background: var(--color-warning);
+  color: var(--color-background);
+}
+
+.silapse-badge--danger {
+  background: var(--color-danger);
+  color: white;
+}
+
+/* ── Chip Component ── */
+
+.silapse-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  clip-path: polygon(3px 0, 100% 0, calc(100% - 3px) 100%, 0 100%);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.silapse-chip--primary {
+  background: var(--color-primary-300);
+  color: var(--color-background);
+}
+
+.silapse-chip--secondary {
+  background: var(--color-bg-300);
+  color: var(--color-text);
+}
+
+.silapse-chip--accent {
+  background: var(--color-accent-300);
+  color: var(--color-background);
+}
+
+.silapse-chip--outline {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.silapse-chip:hover {
+  filter: drop-shadow(0 0 4px var(--color-accent-300));
+}
+
+/* ── Alert Component ── */
+/* Backgrounds use rgba tints for dark/light compatibility */
+
+.silapse-alert {
+  padding: 12px 16px;
+  border-left: 3px solid;
+  background: var(--color-surface-elevated);
+  font-size: 13px;
+}
+
+.silapse-alert--info {
+  border-color: var(--color-primary-300);
+  background: rgba(128, 204, 255, 0.06);
+}
+
+.silapse-alert--success {
+  border-color: var(--color-success);
+  background: rgba(63, 185, 80, 0.06);
+}
+
+.silapse-alert--warning {
+  border-color: var(--color-warning);
+  background: rgba(210, 153, 34, 0.06);
+}
+
+.silapse-alert--error {
+  border-color: var(--color-danger);
+  background: rgba(248, 81, 73, 0.06);
+}
+
+/* ── Form: Field & Input ── */
+
+.silapse-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.silapse-field-label {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.silapse-input {
+  padding: 8px 12px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  background: var(--color-surface-elevated);
+  border: 2px solid var(--color-border);
+  color: var(--color-text);
+  clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
+  outline: none;
+  transition: all 0.15s ease;
+}
+
+.silapse-input:focus {
+  border-color: var(--color-accent-300);
+  filter: drop-shadow(0 0 4px var(--color-accent-300));
+}
+
+.silapse-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.silapse-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* ── Form: Toggle ── */
+
+.silapse-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.silapse-toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.silapse-toggle-track {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  background: var(--color-bg-300);
+  border: 2px solid var(--color-border);
+  clip-path: polygon(3px 0, 100% 0, calc(100% - 3px) 100%, 0 100%);
+  transition: all 0.15s ease;
+}
+
+.silapse-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  background: var(--color-text-secondary);
+  transition: all 0.15s ease;
+}
+
+.silapse-toggle input:checked + .silapse-toggle-track {
+  background: var(--color-accent-100);
+  border-color: var(--color-accent-300);
+}
+
+.silapse-toggle input:checked + .silapse-toggle-track .silapse-toggle-thumb {
+  left: 18px;
+  background: var(--color-accent-300);
+}
+
+.silapse-toggle-label {
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+/* ── Form: Checkbox ── */
+
+.silapse-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.silapse-checkbox input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.silapse-checkbox-box {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  background: var(--color-surface-elevated);
+  border: 2px solid var(--color-border);
+  transition: all 0.15s ease;
+}
+
+.silapse-checkbox-box::after {
+  content: '';
+  position: absolute;
+  display: none;
+  left: 5px;
+  top: 1px;
+  width: 4px;
+  height: 9px;
+  border: solid var(--color-background);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.silapse-checkbox input:checked + .silapse-checkbox-box {
+  background: var(--color-accent-300);
+  border-color: var(--color-accent-300);
+}
+
+.silapse-checkbox input:checked + .silapse-checkbox-box::after {
+  display: block;
+}
+
+.silapse-checkbox-label {
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+/* ── Progress ── */
+
+.silapse-progress {
+  width: 100%;
+}
+
+.silapse-progress-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  margin-bottom: 4px;
+}
+
+.silapse-progress-track {
+  height: 8px;
+  background: var(--color-bg-300);
+  border: 1px solid var(--color-border);
+  clip-path: polygon(2px 0, 100% 0, calc(100% - 2px) 100%, 0 100%);
+  overflow: hidden;
+}
+
+.silapse-progress-fill {
+  height: 100%;
+  background: var(--color-accent-300);
+  transition: width 0.3s ease;
+}
+
+/* ── Separator ── */
+
+.silapse-separator {
+  border: none;
+  height: 2px;
+  background: var(--color-border);
+  margin: 1rem 0;
+}
+
+/* ── Select Component ── */
+
+.silapse-select {
+  position: relative;
+  display: inline-block;
+}
+
+.silapse-select-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 160px;
+  padding: 8px 12px;
+  background: var(--color-surface-elevated);
+  border: 2px solid var(--color-border);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 13px;
+  cursor: pointer;
+  clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.silapse-select-trigger:hover {
+  border-color: var(--color-accent-300);
+  filter: drop-shadow(0 0 4px var(--color-accent-300));
+}
+
+.silapse-select-trigger[data-open="true"] {
+  border-color: var(--color-accent-300);
+  background: var(--color-accent-100);
+}
+
+.silapse-select-value {
+  flex: 1;
+}
+
+.silapse-select-arrow {
+  font-size: 10px;
+  color: var(--color-text-muted);
+}
+
+.silapse-select-listbox {
+  position: absolute;
+  z-index: 100;
+  min-width: 160px;
+  max-height: 240px;
+  overflow: auto;
+  margin-top: 4px;
+  padding: 4px 0;
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+}
+
+.silapse-select-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  outline: none;
+}
+
+.silapse-select-option:hover,
+.silapse-select-option[data-focused="true"] {
+  background: var(--color-accent-100);
+  color: var(--color-accent-300);
+}
+
+.silapse-select-option[data-selected="true"] {
+  color: var(--color-accent-300);
+  font-weight: 500;
+}
+
+.silapse-select-option[data-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Menu Component ── */
+
+.silapse-menu-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--color-surface-elevated);
+  border: 2px solid var(--color-border);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 13px;
+  cursor: pointer;
+  clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
+  transition: all 0.15s ease;
+}
+
+.silapse-menu-button:hover {
+  border-color: var(--color-accent-300);
+  filter: drop-shadow(0 0 4px var(--color-accent-300));
+}
+
+.silapse-menu-arrow {
+  font-size: 10px;
+  color: var(--color-text-muted);
+}
+
+.silapse-menu {
+  position: absolute;
+  z-index: 100;
+  min-width: 140px;
+  margin-top: 4px;
+  padding: 4px 0;
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+}
+
+.silapse-menu-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  outline: none;
+}
+
+.silapse-menu-item:hover,
+.silapse-menu-item[data-focused="true"] {
+  background: var(--color-accent-100);
+  color: var(--color-accent-300);
+}
+
+/* ── Listbox Component ── */
+
+.silapse-listbox {
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  max-height: 200px;
+  overflow: auto;
+}
+
+.silapse-listbox-option {
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  outline: none;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.silapse-listbox-option:last-child {
+  border-bottom: none;
+}
+
+.silapse-listbox-option:hover,
+.silapse-listbox-option[data-focused="true"] {
+  background: var(--color-accent-100);
+}
+
+.silapse-listbox-option[data-selected="true"] {
+  background: var(--color-accent-100);
+  border-left: 3px solid var(--color-accent-300);
+}
+
+.silapse-listbox-option-name {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.silapse-listbox-option-desc {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+/* ── Tabs Component ── */
+
+.silapse-tabs {
+  width: 100%;
+}
+
+.silapse-tabs-list {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.silapse-tab {
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.silapse-tab:hover {
+  color: var(--color-text);
+}
+
+.silapse-tab[aria-selected="true"],
+.silapse-tab:focus {
+  color: var(--color-accent-300);
+  border-bottom-color: var(--color-accent-300);
+}
+
+.silapse-tabs-panel {
+  padding: 1rem 0;
+}
+
+/* ── Disclosure Component ── */
+
+.silapse-disclosure {
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.silapse-disclosure-trigger {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--color-surface-elevated);
+  border: none;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 13px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+}
+
+.silapse-disclosure-trigger:hover {
+  background: var(--color-bg-300);
+}
+
+.silapse-disclosure-trigger[data-open="true"] {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.silapse-disclosure-panel {
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+/* ── Tooltip Component ── */
+
+.silapse-tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.silapse-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  padding: 6px 10px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  font-size: 12px;
+  color: var(--color-text);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
+}
+
+.silapse-tooltip-wrapper:hover .silapse-tooltip {
+  opacity: 1;
+}

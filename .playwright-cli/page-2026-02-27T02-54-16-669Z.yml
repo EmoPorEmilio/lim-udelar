@@ -1,0 +1,56 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "L LIM" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]: L
+        - generic [ref=e7]: LIM
+      - navigation [ref=e8]:
+        - link "FAQ" [ref=e9] [cursor=pointer]:
+          - /url: /faq
+        - link "PLAN" [ref=e10] [cursor=pointer]:
+          - /url: /curriculum
+        - link "MATERIALES" [ref=e11] [cursor=pointer]:
+          - /url: /materiales
+        - link "Ingresar con Google" [ref=e12] [cursor=pointer]:
+          - /url: /api/auth/google
+          - button "Ingresar con Google" [ref=e13]
+  - generic [ref=e15]:
+    - generic [ref=e16]:
+      - heading "Preguntas Frecuentes" [level=1] [ref=e17]
+      - paragraph [ref=e18]: Todo lo que necesitás saber sobre la Licenciatura en Ingeniería de Medios.
+    - group [ref=e20]:
+      - button "¿Qué es la LIM?" [ref=e22]:
+        - text: ¿Qué es la LIM?
+        - img [ref=e23]
+      - button "¿Cuánto dura la carrera?" [ref=e26]:
+        - text: ¿Cuánto dura la carrera?
+        - img [ref=e27]
+      - button "¿Cuáles son las áreas de formación?" [ref=e30]:
+        - text: ¿Cuáles son las áreas de formación?
+        - img [ref=e31]
+      - button "¿Cuáles son los requisitos de ingreso?" [ref=e34]:
+        - text: ¿Cuáles son los requisitos de ingreso?
+        - img [ref=e35]
+      - button "¿Cuántos estudiantes habrá en la primera generación?" [ref=e38]:
+        - text: ¿Cuántos estudiantes habrá en la primera generación?
+        - img [ref=e39]
+      - button "¿Cómo es el Trabajo Final de Grado?" [ref=e42]:
+        - text: ¿Cómo es el Trabajo Final de Grado?
+        - img [ref=e43]
+      - button "¿Cuáles son las salidas laborales?" [ref=e46]:
+        - text: ¿Cuáles son las salidas laborales?
+        - img [ref=e47]
+      - button "¿Cómo puedo contactar a la coordinación?" [ref=e50]:
+        - text: ¿Cómo puedo contactar a la coordinación?
+        - img [ref=e51]
+      - button "¿Qué tipo de proyectos se realizan durante la carrera?" [ref=e54]:
+        - text: ¿Qué tipo de proyectos se realizan durante la carrera?
+        - img [ref=e55]
+      - button "¿Qué líneas de investigación existen?" [ref=e58]:
+        - text: ¿Qué líneas de investigación existen?
+        - img [ref=e59]
+  - contentinfo [ref=e61]:
+    - generic [ref=e62]:
+      - paragraph [ref=e63]: LIM — Grupo de Estudio — Licenciatura en Ingeniería de Medios
+      - paragraph [ref=e64]: FIC + Fing — Universidad de la República — Uruguay

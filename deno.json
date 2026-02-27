@@ -1,0 +1,28 @@
+{
+  "$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
+  "unstable": ["sloppy-imports"],
+  "imports": {
+    "solid-js": "npm:solid-js@^1.9.10",
+    "solid-js/web": "npm:solid-js@^1.9.10/web",
+    "solid-js/store": "npm:solid-js@^1.9.10/store",
+    "@internationalized/date": "npm:@internationalized/date@^3.8.0",
+    "@internationalized/string": "npm:@internationalized/string@^3.2.5",
+    "@swc/helpers": "npm:@swc/helpers@^0.5.0"
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "solid-js",
+    "lib": ["dom", "dom.iterable", "esnext"]
+  },
+  "tasks": {
+    "dev": "deno run -A npm:vite dev",
+    "build": "NODE_ENV=production deno run -A npm:vite build && deno run -A npm:typescript/tsc --noEmit",
+    "preview": "deno run -A npm:vite preview",
+    "deploy": "deno task build && wrangler deploy",
+    "cf-typegen": "wrangler types",
+    "db:generate": "deno run -A npm:drizzle-kit generate",
+    "db:migrate:local": "deno run -A npm:drizzle-kit migrate",
+    "db:studio": "deno run -A npm:drizzle-kit studio"
+  },
+  "nodeModulesDir": "auto"
+}

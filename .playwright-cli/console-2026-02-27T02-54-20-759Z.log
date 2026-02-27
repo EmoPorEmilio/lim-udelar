@@ -1,0 +1,13 @@
+[     877ms] [WARNING] Warning: Error in route match: __root__ @ http://localhost:4004/node_modules/.deno/tiny-warning@1.0.3/node_modules/tiny-warning/dist/tiny-warning.esm.js?v=70866a54:8
+[     877ms] [ERROR] DefaultCatchBoundary Error: Error: Hydration Mismatch. Unable to find DOM nodes for hydration key: 000000001000000300000000207000000000000000207003000000
+<div class="solidaria-TabList" role="tablist"></div>
+    at getNextElement (http://localhost:4004/node_modules/.vite/deps/chunk-R7ECFLX2.js?v=70866a54:787:13)
+    at get fallback (http://localhost:4004/node_modules/.deno/@proyecto-viviana+solidaria-components@0.2.5/node_modules/@proyecto-viviana/solidaria-components/src/Tabs.tsx:113:14)
+    at Show.createMemo.name [as fn] (http://localhost:4004/node_modules/.vite/deps/chunk-CG7IADCY.js?v=70866a54:1522:18)
+    at runComputation (http://localhost:4004/node_modules/.vite/deps/chunk-CG7IADCY.js?v=70866a54:734:22)
+    at updateComputation (http://localhost:4004/node_modules/.vite/deps/chunk-CG7IADCY.js?v=70866a54:717:3)
+    at createMemo (http://localhost:4004/node_modules/.vite/deps/chunk-CG7IADCY.js?v=70866a54:267:10)
+    at Show (http://localhost:4004/node_modules/.vite/deps/chunk-CG7IADCY.js?v=70866a54:1512:10)
+    at http://localhost:4004/node_modules/.vite/deps/chunk-CG7IADCY.js?v=70866a54:575:12
+    at untrack (http://localhost:4004/node_modules/.vite/deps/chunk-CG7IADCY.js?v=70866a54:462:12)
+    at Object.fn (http://localhost:4004/node_modules/.vite/deps/chunk-CG7IADCY.js?v=70866a54:571:37) @ http://localhost:4004/src/components/DefaultCatchBoundary.tsx:20

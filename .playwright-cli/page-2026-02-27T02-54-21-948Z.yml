@@ -1,0 +1,78 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "L LIM" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]: L
+        - generic [ref=e7]: LIM
+      - navigation [ref=e8]:
+        - link "FAQ" [ref=e9] [cursor=pointer]:
+          - /url: /faq
+        - link "PLAN" [ref=e10] [cursor=pointer]:
+          - /url: /curriculum
+        - link "MATERIALES" [ref=e11] [cursor=pointer]:
+          - /url: /materiales
+        - link "Ingresar con Google" [ref=e12] [cursor=pointer]:
+          - /url: /api/auth/google
+          - button "Ingresar con Google" [ref=e13]
+  - generic [ref=e15]:
+    - generic [ref=e16]:
+      - heading "Plan de Estudios" [level=1] [ref=e17]
+      - paragraph [ref=e18]: 4 áreas de formación, 8 semestres, 360 créditos.
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - button [ref=e22]
+          - heading "Formación en Ingeniería" [level=3] [ref=e23]
+        - paragraph [ref=e24]: Fundamentos de programación, matemáticas, estructuras de datos, procesamiento de señales, redes y aprendizaje automático.
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - button [ref=e27]
+          - heading "Información, Comunicación y Medios" [level=3] [ref=e28]
+        - paragraph [ref=e29]: Teoría de la comunicación, narrativas audiovisuales, diseño de interacción, estudios de audiencia y gestión de contenidos.
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - button [ref=e32]
+          - heading "Creatividad e Innovación" [level=3] [ref=e33]
+        - paragraph [ref=e34]: Diseño visual, producción audiovisual, animación, experiencias inmersivas, prototipado y trabajo final de grado.
+      - generic [ref=e35]:
+        - generic [ref=e36]:
+          - button [ref=e37]
+          - heading "Complementaria" [level=3] [ref=e38]
+        - paragraph [ref=e39]: Inglés técnico, gestión de proyectos, electivas interdisciplinarias y formación transversal.
+  - generic [ref=e41]:
+    - heading "Materias por Semestre" [level=2] [ref=e43]
+    - tablist [ref=e45]
+  - generic [ref=e47]:
+    - generic [ref=e48]:
+      - heading "Perfil Profesional" [level=2] [ref=e49]
+      - paragraph [ref=e50]: Áreas de desempeño profesional para egresados de la LIM.
+    - generic [ref=e51]:
+      - generic [ref=e52]:
+        - heading "Experiencias Interactivas y Multimedia" [level=3] [ref=e53]
+        - paragraph [ref=e54]: Diseño y desarrollo de experiencias interactivas, aplicaciones multimedia y contenidos digitales innovadores.
+      - generic [ref=e55]:
+        - heading "Producción Audiovisual" [level=3] [ref=e56]
+        - paragraph [ref=e57]: Producción, postproducción y distribución de contenidos audiovisuales en múltiples formatos y plataformas.
+      - generic [ref=e58]:
+        - heading "Diseño UX/UI" [level=3] [ref=e59]
+        - paragraph [ref=e60]: Diseño de interfaces y experiencia de usuario para productos digitales, aplicaciones y servicios.
+      - generic [ref=e61]:
+        - heading "Videojuegos y Experiencias Inmersivas" [level=3] [ref=e62]
+        - paragraph [ref=e63]: Desarrollo de videojuegos, experiencias de realidad virtual (VR) y realidad aumentada (AR).
+      - generic [ref=e64]:
+        - heading "Datos y Visualización" [level=3] [ref=e65]
+        - paragraph [ref=e66]: Análisis de datos, visualización de información y periodismo de datos.
+      - generic [ref=e67]:
+        - heading "Innovación Mediática" [level=3] [ref=e68]
+        - paragraph [ref=e69]: Gestión de proyectos de innovación en medios y consultoría en transformación digital.
+      - generic [ref=e70]:
+        - heading "Investigación" [level=3] [ref=e71]
+        - paragraph [ref=e72]: Investigación académica en comunicación, tecnología, medios digitales e inteligencia artificial aplicada.
+      - generic [ref=e73]:
+        - heading "Transformación Digital" [level=3] [ref=e74]
+        - paragraph [ref=e75]: Consultoría y liderazgo en procesos de transformación digital de organizaciones mediáticas.
+  - contentinfo [ref=e76]:
+    - generic [ref=e77]:
+      - paragraph [ref=e78]: LIM — Grupo de Estudio — Licenciatura en Ingeniería de Medios
+      - paragraph [ref=e79]: FIC + Fing — Universidad de la República — Uruguay

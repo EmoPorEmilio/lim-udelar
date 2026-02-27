@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "lim",
+  "compatibility_date": "2025-09-24",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "@tanstack/solid-start/server-entry",
+  "vars": {
+    "GOOGLE_CLIENT_ID": "",
+    "GOOGLE_REDIRECT_URI": "https://lim.emoporemilio.workers.dev/api/auth/callback"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "lim-db",
+      "database_id": ""
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "MATERIALS_BUCKET",
+      "bucket_name": "lim-materials"
+    }
+  ]
+}

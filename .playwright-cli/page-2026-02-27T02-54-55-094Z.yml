@@ -1,0 +1,591 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - img
+    - generic [ref=e4]:
+      - generic [ref=e5]: V
+      - generic [ref=e6]: Documentation
+    - generic [ref=e7]:
+      - link "HOME" [ref=e8] [cursor=pointer]:
+        - /url: /landing
+      - link "EDITOR" [ref=e9] [cursor=pointer]:
+        - /url: /
+      - button "Switch to light mode" [ref=e10] [cursor=pointer]:
+        - img [ref=e11]
+  - generic [ref=e18]:
+    - navigation [ref=e19]:
+      - img
+      - generic [ref=e20]:
+        - generic:
+          - link "V VisualMode Documentation":
+            - /url: /landing
+            - generic: V
+            - generic:
+              - generic: VisualMode
+              - generic: Documentation
+          - button "Switch to light mode":
+            - img
+      - generic [ref=e21]:
+        - button "Silapse Components" [ref=e22] [cursor=pointer]
+        - button "Getting Started" [ref=e23] [cursor=pointer]
+        - button "Navigation" [ref=e24] [cursor=pointer]
+        - button "Selection" [ref=e25] [cursor=pointer]
+        - button "Editing Elements" [ref=e26] [cursor=pointer]
+        - button "3D Rotation" [ref=e27] [cursor=pointer]
+        - button "3D View & Camera" [ref=e28] [cursor=pointer]
+        - button "Styling" [ref=e29] [cursor=pointer]
+        - button "Clipboard" [ref=e30] [cursor=pointer]
+        - button "Visual Mode" [ref=e31] [cursor=pointer]
+        - button "Layers Panel" [ref=e32] [cursor=pointer]
+        - button "Mouse Controls" [ref=e33] [cursor=pointer]
+        - button "File Operations" [ref=e34] [cursor=pointer]
+        - button "Quick Reference" [ref=e35] [cursor=pointer]
+      - link "Launch Editor" [ref=e37] [cursor=pointer]:
+        - /url: /
+        - text: Launch Editor
+        - img [ref=e38]
+    - main [ref=e41]:
+      - generic [ref=e42]:
+        - heading "Silapse Components" [level=2] [ref=e43]
+        - paragraph [ref=e44]: VisualMode's UI components with the Silapse cyberpunk aesthetic — angular clip-paths, glow effects, and wire decorations.
+        - generic [ref=e45]:
+          - heading "Buttons" [level=3] [ref=e46]
+          - generic [ref=e47]:
+            - button "PRIMARY" [ref=e48] [cursor=pointer]
+            - button "BLUE" [ref=e49] [cursor=pointer]
+            - button "SECONDARY" [ref=e50] [cursor=pointer]
+            - button "GHOST" [ref=e51] [cursor=pointer]
+            - button "SUCCESS" [ref=e52] [cursor=pointer]
+            - button "DANGER" [ref=e53] [cursor=pointer]
+        - generic [ref=e54]:
+          - heading "Badges" [level=3] [ref=e55]
+          - generic [ref=e56]:
+            - generic [ref=e57]: NORMAL
+            - generic [ref=e58]: VISUAL
+            - generic [ref=e59]: SUCCESS
+            - generic [ref=e60]: WARNING
+            - generic [ref=e61]: DANGER
+        - generic [ref=e62]:
+          - heading "Inputs & Toggle" [level=3] [ref=e63]
+          - generic [ref=e64]:
+            - generic [ref=e66]:
+              - generic [ref=e67]: Layer Name
+              - textbox [ref=e68]: Layer_001
+            - generic [ref=e69]:
+              - img [ref=e72] [cursor=pointer]
+              - generic [ref=e73]: ACTIVE
+        - generic [ref=e74]:
+          - heading "Alerts" [level=3] [ref=e75]
+          - generic [ref=e76]:
+            - generic [ref=e77]:
+              - img
+              - generic [ref=e78]: SUCCESS
+              - generic [ref=e79]: Neural pathways synchronized
+            - generic [ref=e80]:
+              - img
+              - generic [ref=e81]: WARNING
+              - generic [ref=e82]: Memory buffer at 87% capacity
+            - generic [ref=e83]:
+              - img
+              - generic [ref=e84]: CRITICAL
+              - generic [ref=e85]: Synapse overload detected
+            - generic [ref=e86]:
+              - img
+              - generic [ref=e87]: INFO
+              - generic [ref=e88]: System update available
+        - generic [ref=e89]:
+          - heading "Progress & Gauges" [level=3] [ref=e90]
+          - generic [ref=e91]:
+            - img [ref=e100]:
+              - generic [ref=e104]: "65"
+              - generic [ref=e105]: POWER
+            - img [ref=e107]:
+              - generic [ref=e111]: "87"
+              - generic [ref=e112]: MEMORY
+        - generic [ref=e114]:
+          - heading "Cards" [level=3] [ref=e115]
+          - generic [ref=e116]:
+            - generic [ref=e117]:
+              - generic [ref=e118]:
+                - img
+                - heading "System Status" [level=4] [ref=e119]
+              - generic [ref=e121]:
+                - generic [ref=e122]:
+                  - generic [ref=e123]: Neural Core
+                  - generic [ref=e124]: ONLINE
+                - generic [ref=e125]:
+                  - generic [ref=e126]: Memory
+                  - generic [ref=e127]: 84.2 GB
+            - generic [ref=e128]:
+              - generic [ref=e129]:
+                - img
+                - heading "Diagnostics" [level=4] [ref=e130]
+              - generic [ref=e132]:
+                - generic [ref=e133]:
+                  - generic [ref=e134]: Temperature
+                  - generic [ref=e135]: 62°C
+                - generic [ref=e136]:
+                  - generic [ref=e137]: Uptime
+                  - generic [ref=e138]: 14d 7h
+      - generic [ref=e139]:
+        - heading "Getting Started" [level=2] [ref=e140]
+        - generic [ref=e141]:
+          - paragraph [ref=e142]: VisualMode is a design canvas built for keyboard-first workflows. It uses vim-style keybindings to let you create, edit, and style UI elements without ever touching your mouse.
+          - heading "Core Concepts" [level=3] [ref=e143]
+          - list [ref=e144]:
+            - listitem [ref=e145]:
+              - strong [ref=e146]: Cursor
+              - text: "- Your position on the canvas, shown as crosshairs. Move with hjkl."
+            - listitem [ref=e147]:
+              - strong [ref=e148]: Selection
+              - text: "- Elements you're operating on. Select with Enter or s."
+            - listitem [ref=e149]:
+              - strong [ref=e150]: Modes
+              - text: "- Normal mode for navigation, Visual mode for rectangle selection, Insert mode for creating."
+            - listitem [ref=e151]:
+              - strong [ref=e152]: Counts
+              - text: "- Prefix commands with numbers to repeat them, e.g., 5j moves 5 steps down."
+          - heading "Your First Design" [level=3] [ref=e153]
+          - list [ref=e154]:
+            - listitem [ref=e155]: Press ir to insert a rectangle at the cursor
+            - listitem [ref=e156]: Use mhjkl to move it around
+            - listitem [ref=e157]: Press sbg#ff6b6b to change its background color
+            - listitem [ref=e158]: Press it to insert a text element
+            - listitem [ref=e159]: Select both with v (visual mode), extend, and Enter
+            - listitem [ref=e160]: Press g to group them into a container
+          - generic [ref=e161]:
+            - strong [ref=e162]: TIP
+            - paragraph [ref=e163]: Press ? anytime in the editor for help.
+      - generic [ref=e164]:
+        - heading "Navigation" [level=2] [ref=e165]
+        - generic [ref=e166]:
+          - paragraph [ref=e167]: Navigation follows vim conventions. The cursor is your position on the canvas.
+          - heading "Basic Movement" [level=3] [ref=e168]
+          - generic [ref=e169]:
+            - generic [ref=e170]:
+              - code [ref=e171]: h
+              - generic [ref=e172]: Move cursor left
+              - generic [ref=e173]: 8px step
+            - generic [ref=e174]:
+              - code [ref=e175]: j
+              - generic [ref=e176]: Move cursor down
+              - generic [ref=e177]: 8px step
+            - generic [ref=e178]:
+              - code [ref=e179]: k
+              - generic [ref=e180]: Move cursor up
+              - generic [ref=e181]: 8px step
+            - generic [ref=e182]:
+              - code [ref=e183]: l
+              - generic [ref=e184]: Move cursor right
+              - generic [ref=e185]: 8px step
+            - generic [ref=e186]:
+              - code [ref=e187]: Ctrl+hjkl
+              - generic [ref=e188]: Fine movement
+              - generic [ref=e189]: 1px step
+            - generic [ref=e190]:
+              - code [ref=e191]: ",/."
+              - generic [ref=e192]: Move cursor in Z
+              - generic [ref=e193]: Depth axis
+          - heading "Jumps" [level=3] [ref=e194]
+          - generic [ref=e195]:
+            - generic [ref=e196]:
+              - code [ref=e197]: "0"
+              - generic [ref=e198]: Jump to left edge
+            - generic [ref=e199]:
+              - code [ref=e200]: $
+              - generic [ref=e201]: Jump to right edge
+          - heading "Counts" [level=3] [ref=e202]
+          - paragraph [ref=e203]: "Prefix any motion with a number to repeat it:"
+          - list [ref=e204]:
+            - listitem [ref=e205]: 5j - Move down 5 steps (40px)
+            - listitem [ref=e206]: 10l - Move right 10 steps (80px)
+            - listitem [ref=e207]: 3Ctrl+h - Fine-move left 3 steps (3px)
+          - heading "Zoom" [level=3] [ref=e208]
+          - generic [ref=e209]:
+            - generic [ref=e210]:
+              - code [ref=e211]: z+ / zi
+              - generic [ref=e212]: Zoom in
+            - generic [ref=e213]:
+              - code [ref=e214]: z- / zo
+              - generic [ref=e215]: Zoom out
+            - generic [ref=e216]:
+              - code [ref=e217]: z0 / zz
+              - generic [ref=e218]: Reset zoom to 100%
+            - generic [ref=e219]:
+              - code [ref=e220]: zf
+              - generic [ref=e221]: Zoom to fit all elements
+      - generic [ref=e222]:
+        - heading "Selection" [level=2] [ref=e223]
+        - generic [ref=e224]:
+          - paragraph [ref=e225]: Selections determine which elements your actions affect.
+          - heading "Basic Selection" [level=3] [ref=e226]
+          - generic [ref=e227]:
+            - generic [ref=e228]:
+              - code [ref=e229]: Enter / s
+              - generic [ref=e230]: Select element under cursor
+            - generic [ref=e231]:
+              - code [ref=e232]: Esc
+              - generic [ref=e233]: Deselect all
+            - generic [ref=e234]:
+              - code [ref=e235]: Shift+s
+              - generic [ref=e236]: Add to selection
+            - generic [ref=e237]:
+              - code [ref=e238]: a
+              - generic [ref=e239]: Select all elements
+          - heading "Selection Navigation" [level=3] [ref=e240]
+          - generic [ref=e241]:
+            - generic [ref=e242]:
+              - code [ref=e243]: Tab
+              - generic [ref=e244]: Select next sibling
+            - generic [ref=e245]:
+              - code [ref=e246]: Shift+Tab
+              - generic [ref=e247]: Select previous sibling
+            - generic [ref=e248]:
+              - code [ref=e249]: "["
+              - generic [ref=e250]: Select parent
+            - generic [ref=e251]:
+              - code [ref=e252]: "]"
+              - generic [ref=e253]: Select first child
+      - generic [ref=e254]:
+        - heading "Editing Elements" [level=2] [ref=e255]
+        - generic [ref=e256]:
+          - heading "Insert Mode" [level=3] [ref=e257]
+          - generic [ref=e258]:
+            - generic [ref=e259]:
+              - code [ref=e260]: ir
+              - generic [ref=e261]: Insert rectangle
+            - generic [ref=e262]:
+              - code [ref=e263]: it
+              - generic [ref=e264]: Insert text
+            - generic [ref=e265]:
+              - code [ref=e266]: ib
+              - generic [ref=e267]: Insert button
+            - generic [ref=e268]:
+              - code [ref=e269]: ic
+              - generic [ref=e270]: Insert container
+            - generic [ref=e271]:
+              - code [ref=e272]: ia
+              - generic [ref=e273]: Insert artboard/app
+          - heading "Modify Selection" [level=3] [ref=e274]
+          - generic [ref=e275]:
+            - generic [ref=e276]:
+              - code [ref=e277]: mhjkl
+              - generic [ref=e278]: Move element
+              - generic [ref=e279]: 8px step
+            - generic [ref=e280]:
+              - code [ref=e281]: Ctrl+mhjkl
+              - generic [ref=e282]: Fine-move element
+              - generic [ref=e283]: 1px step
+            - generic [ref=e284]:
+              - code [ref=e285]: MH / ML
+              - generic [ref=e286]: Resize width
+              - generic [ref=e287]: 8px
+            - generic [ref=e288]:
+              - code [ref=e289]: MJ / MK
+              - generic [ref=e290]: Resize height
+              - generic [ref=e291]: 8px
+            - generic [ref=e292]:
+              - code [ref=e293]: Ctrl+MH/L/J/K
+              - generic [ref=e294]: Fine-resize
+              - generic [ref=e295]: 1px
+          - heading "Delete & Group" [level=3] [ref=e296]
+          - generic [ref=e297]:
+            - generic [ref=e298]:
+              - code [ref=e299]: d / x
+              - generic [ref=e300]: Delete selected
+            - generic [ref=e301]:
+              - code [ref=e302]: g
+              - generic [ref=e303]: Group selection
+            - generic [ref=e304]:
+              - code [ref=e305]: Shift+g
+              - generic [ref=e306]: Ungroup container
+      - generic [ref=e307]:
+        - heading "3D Rotation" [level=2] [ref=e308]
+        - generic [ref=e309]:
+          - paragraph [ref=e310]: All rotation is relative to the element's center in 3D space.
+          - generic [ref=e311]:
+            - generic [ref=e312]:
+              - code [ref=e313]: rh / rl
+              - generic [ref=e314]: Rotate around Z axis
+              - generic [ref=e315]: 15° steps
+            - generic [ref=e316]:
+              - code [ref=e317]: rj / rk
+              - generic [ref=e318]: Rotate around X axis
+              - generic [ref=e319]: 15° steps
+            - generic [ref=e320]:
+              - code [ref=e321]: r, / r.
+              - generic [ref=e322]: Rotate around Y axis
+              - generic [ref=e323]: 15° steps
+            - generic [ref=e324]:
+              - code [ref=e325]: Ctrl+r...
+              - generic [ref=e326]: Fine rotation
+              - generic [ref=e327]: 1° steps
+            - generic [ref=e328]:
+              - code [ref=e329]: rr
+              - generic [ref=e330]: Reset all rotation
+          - generic [ref=e331]:
+            - strong [ref=e332]: TIP
+            - paragraph [ref=e333]: "Use counts with rotation: 6rh rotates 90° around Z."
+      - generic [ref=e334]:
+        - heading "3D View & Camera" [level=2] [ref=e335]
+        - generic [ref=e336]:
+          - paragraph [ref=e337]: The canvas is a 3D environment with camera controls for changing your viewpoint.
+          - heading "Camera Presets" [level=3] [ref=e338]
+          - generic [ref=e339]:
+            - generic [ref=e340]:
+              - code [ref=e341]: c0
+              - generic [ref=e342]: Front view
+              - generic [ref=e343]: Default 2D mode
+            - generic [ref=e344]:
+              - code [ref=e345]: c1
+              - generic [ref=e346]: Isometric view
+            - generic [ref=e347]:
+              - code [ref=e348]: c2
+              - generic [ref=e349]: Top-down view
+            - generic [ref=e350]:
+              - code [ref=e351]: c3
+              - generic [ref=e352]: Side view (right)
+            - generic [ref=e353]:
+              - code [ref=e354]: c4
+              - generic [ref=e355]: Side view (left)
+          - heading "Camera Movement" [level=3] [ref=e356]
+          - generic [ref=e357]:
+            - generic [ref=e358]:
+              - code [ref=e359]: Right-drag
+              - generic [ref=e360]: Orbit camera
+              - generic [ref=e361]: Mouse
+            - generic [ref=e362]:
+              - code [ref=e363]: Scroll
+              - generic [ref=e364]: Zoom in/out
+            - generic [ref=e365]:
+              - code [ref=e366]: Middle-drag
+              - generic [ref=e367]: Pan camera
+      - generic [ref=e368]:
+        - heading "Styling" [level=2] [ref=e369]
+        - generic [ref=e370]:
+          - paragraph [ref=e371]: "Styling uses a command pattern: s + property abbreviation + value."
+          - heading "Property Abbreviations" [level=3] [ref=e372]
+          - generic [ref=e373]:
+            - generic [ref=e374]:
+              - code [ref=e375]: bg
+              - generic [ref=e376]: background
+            - generic [ref=e377]:
+              - code [ref=e378]: c
+              - generic [ref=e379]: color
+            - generic [ref=e380]:
+              - code [ref=e381]: br
+              - generic [ref=e382]: border-radius
+            - generic [ref=e383]:
+              - code [ref=e384]: bw
+              - generic [ref=e385]: border-width
+            - generic [ref=e386]:
+              - code [ref=e387]: bc
+              - generic [ref=e388]: border-color
+            - generic [ref=e389]:
+              - code [ref=e390]: o
+              - generic [ref=e391]: opacity
+            - generic [ref=e392]:
+              - code [ref=e393]: w
+              - generic [ref=e394]: width
+            - generic [ref=e395]:
+              - code [ref=e396]: h
+              - generic [ref=e397]: height
+            - generic [ref=e398]:
+              - code [ref=e399]: fs
+              - generic [ref=e400]: font-size
+            - generic [ref=e401]:
+              - code [ref=e402]: fw
+              - generic [ref=e403]: font-weight
+          - heading "Examples" [level=3] [ref=e404]
+          - generic [ref=e405]:
+            - generic [ref=e406]:
+              - code [ref=e407]: sbg#ff6b6b
+              - generic [ref=e408]: Set background to red
+            - generic [ref=e409]:
+              - code [ref=e410]: sc#ffffff
+              - generic [ref=e411]: Set text color to white
+            - generic [ref=e412]:
+              - code [ref=e413]: sbr8
+              - generic [ref=e414]: Set border-radius to 8px
+            - generic [ref=e415]:
+              - code [ref=e416]: sbw2
+              - generic [ref=e417]: Set border-width to 2px
+            - generic [ref=e418]:
+              - code [ref=e419]: so0.5
+              - generic [ref=e420]: Set opacity to 50%
+      - generic [ref=e421]:
+        - heading "Clipboard" [level=2] [ref=e422]
+        - generic [ref=e424]:
+          - generic [ref=e425]:
+            - code [ref=e426]: "y"
+            - generic [ref=e427]: Copy selection
+          - generic [ref=e428]:
+            - code [ref=e429]: p
+            - generic [ref=e430]: Paste at cursor
+          - generic [ref=e431]:
+            - code [ref=e432]: P
+            - generic [ref=e433]: Paste in place
+            - generic [ref=e434]: Original position
+          - generic [ref=e435]:
+            - code [ref=e436]: D
+            - generic [ref=e437]: Duplicate selection
+            - generic [ref=e438]: Offset copy
+      - generic [ref=e439]:
+        - heading "Visual Mode" [level=2] [ref=e440]
+        - generic [ref=e441]:
+          - paragraph [ref=e442]: Visual mode lets you select multiple elements by drawing a rectangle.
+          - generic [ref=e443]:
+            - generic [ref=e444]:
+              - code [ref=e445]: v
+              - generic [ref=e446]: Enter visual mode
+            - generic [ref=e447]:
+              - code [ref=e448]: hjkl
+              - generic [ref=e449]: Expand selection rect
+            - generic [ref=e450]:
+              - code [ref=e451]: Enter
+              - generic [ref=e452]: Select elements in rect
+            - generic [ref=e453]:
+              - code [ref=e454]: Esc
+              - generic [ref=e455]: Cancel visual mode
+          - generic [ref=e456]:
+            - strong [ref=e457]: TIP
+            - paragraph [ref=e458]: After visual select, all editing commands apply to all selected elements.
+      - generic [ref=e459]:
+        - heading "Layers Panel" [level=2] [ref=e460]
+        - generic [ref=e462]:
+          - generic [ref=e463]:
+            - code [ref=e464]: H
+            - generic [ref=e465]: Toggle hidden
+          - generic [ref=e466]:
+            - code [ref=e467]: L
+            - generic [ref=e468]: Toggle locked
+          - generic [ref=e469]:
+            - code [ref=e470]: "{"
+            - generic [ref=e471]: Move layer up
+            - generic [ref=e472]: Z-order
+          - generic [ref=e473]:
+            - code [ref=e474]: "}"
+            - generic [ref=e475]: Move layer down
+            - generic [ref=e476]: Z-order
+      - generic [ref=e477]:
+        - heading "Mouse Controls" [level=2] [ref=e478]
+        - generic [ref=e479]:
+          - paragraph [ref=e480]: While keyboard-first, the mouse provides useful shortcuts.
+          - generic [ref=e481]:
+            - generic [ref=e482]:
+              - code [ref=e483]: Left-click
+              - generic [ref=e484]: Select element
+            - generic [ref=e485]:
+              - code [ref=e486]: Shift+click
+              - generic [ref=e487]: Add to selection
+            - generic [ref=e488]:
+              - code [ref=e489]: Right-drag
+              - generic [ref=e490]: Orbit camera
+            - generic [ref=e491]:
+              - code [ref=e492]: Middle-drag
+              - generic [ref=e493]: Pan camera
+            - generic [ref=e494]:
+              - code [ref=e495]: Scroll
+              - generic [ref=e496]: Zoom in/out
+            - generic [ref=e497]:
+              - code [ref=e498]: Ctrl+scroll
+              - generic [ref=e499]: Fine zoom
+      - generic [ref=e500]:
+        - heading "File Operations" [level=2] [ref=e501]
+        - generic [ref=e503]:
+          - generic [ref=e504]:
+            - code [ref=e505]: Ctrl+s
+            - generic [ref=e506]: Save project
+          - generic [ref=e507]:
+            - code [ref=e508]: Ctrl+o
+            - generic [ref=e509]: Open project
+          - generic [ref=e510]:
+            - code [ref=e511]: Ctrl+n
+            - generic [ref=e512]: New project
+          - generic [ref=e513]:
+            - code [ref=e514]: Ctrl+e
+            - generic [ref=e515]: Export selection
+      - generic [ref=e516]:
+        - heading "Quick Reference" [level=2] [ref=e517]
+        - generic [ref=e518]:
+          - heading "Movement" [level=3] [ref=e519]
+          - generic [ref=e520]:
+            - generic [ref=e521]:
+              - code [ref=e522]: h
+              - text: Left
+            - generic [ref=e523]:
+              - code [ref=e524]: j
+              - text: Down
+            - generic [ref=e525]:
+              - code [ref=e526]: k
+              - text: Up
+            - generic [ref=e527]:
+              - code [ref=e528]: l
+              - text: Right
+            - generic [ref=e529]:
+              - code [ref=e530]: ","
+              - text: Back
+            - generic [ref=e531]:
+              - code [ref=e532]: .
+              - text: Forward
+          - heading "Insert" [level=3] [ref=e533]
+          - generic [ref=e534]:
+            - generic [ref=e535]:
+              - code [ref=e536]: ir
+              - text: Rect
+            - generic [ref=e537]:
+              - code [ref=e538]: it
+              - text: Text
+            - generic [ref=e539]:
+              - code [ref=e540]: ib
+              - text: Button
+            - generic [ref=e541]:
+              - code [ref=e542]: ic
+              - text: Container
+            - generic [ref=e543]:
+              - code [ref=e544]: ia
+              - text: App
+          - heading "Common Operations" [level=3] [ref=e545]
+          - generic [ref=e546]:
+            - generic [ref=e547]:
+              - code [ref=e548]: d
+              - text: Delete
+            - generic [ref=e549]:
+              - code [ref=e550]: "y"
+              - text: Copy
+            - generic [ref=e551]:
+              - code [ref=e552]: p
+              - text: Paste
+            - generic [ref=e553]:
+              - code [ref=e554]: u
+              - text: Undo
+            - generic [ref=e555]:
+              - code [ref=e556]: g
+              - text: Group
+            - generic [ref=e557]:
+              - code [ref=e558]: U
+              - text: Ungroup
+            - generic [ref=e559]:
+              - code [ref=e560]: H
+              - text: Hide
+            - generic [ref=e561]:
+              - code [ref=e562]: L
+              - text: Lock
+          - heading "Rotation" [level=3] [ref=e563]
+          - generic [ref=e564]:
+            - generic [ref=e565]:
+              - code [ref=e566]: rh/rl
+              - text: Z rot
+            - generic [ref=e567]:
+              - code [ref=e568]: rj/rk
+              - text: X rot
+            - generic [ref=e569]:
+              - code [ref=e570]: r,/r.
+              - text: Y rot
+      - generic [ref=e571]:
+        - paragraph [ref=e572]: Built with vim philosophy
+        - paragraph [ref=e573]:
+          - link "Launch Editor" [ref=e574] [cursor=pointer]:
+            - /url: /
+          - text: ·
+          - link "Home" [ref=e575] [cursor=pointer]:
+            - /url: /landing
