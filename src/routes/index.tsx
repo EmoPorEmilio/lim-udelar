@@ -1,12 +1,15 @@
 import { createFileRoute, Link, useLocation } from '@tanstack/solid-router'
+import { Show } from 'solid-js'
 import { Logo, Button } from '@proyecto-viviana/ui'
 import { PageShell } from '../components/layouts/PageShell'
+import { useAuth } from '../auth/context'
 
 export const Route = createFileRoute('/')({
   component: HomePage,
 })
 
 function HomePage() {
+  const auth = useAuth()
   const location = useLocation()
   const loginUrl = () => `/api/auth/google?returnTo=${encodeURIComponent(location().pathname)}`
 
@@ -60,9 +63,18 @@ function HomePage() {
 
         {/* CTA Buttons */}
         <div style={{ display: 'flex', gap: '12px', 'flex-wrap': 'wrap', 'justify-content': 'center' }}>
-          <a href={loginUrl()} style={{ 'text-decoration': 'none' }}>
-            <Button variant="accent">Ingresar con Google</Button>
-          </a>
+          <Show
+            when={auth.user}
+            fallback={
+              <a href={loginUrl()} style={{ 'text-decoration': 'none' }}>
+                <Button variant="accent">Ingresar con Google</Button>
+              </a>
+            }
+          >
+            <Link to="/materiales" style={{ 'text-decoration': 'none' }}>
+              <Button variant="accent">Ir a Materiales</Button>
+            </Link>
+          </Show>
           <Link to="/curriculum" style={{ 'text-decoration': 'none' }}>
             <Button variant="primary" buttonStyle="outline">Ver Plan de Estudios</Button>
           </Link>
