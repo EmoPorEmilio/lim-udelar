@@ -1,24 +1,26 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "lim",
-  "compatibility_date": "2025-09-24",
-  "compatibility_flags": ["nodejs_compat"],
-  "main": "@tanstack/solid-start/server-entry",
-  "vars": {
-    "GOOGLE_CLIENT_ID": "",
-    "GOOGLE_REDIRECT_URI": "https://lim.emoporemilio.workers.dev/api/auth/callback"
-  },
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "lim-db",
-      "database_id": ""
-    }
-  ],
-  "r2_buckets": [
-    {
-      "binding": "MATERIALS_BUCKET",
-      "bucket_name": "lim-materials"
-    }
-  ]
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "lim-udelar",
+	"compatibility_date": "2025-09-24",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"main": "src/server-entry.ts",
+	"vars": {
+		"GOOGLE_CLIENT_ID": "320763397492-e135gqnij1bdbs5gh78gle8erfdt2vph.apps.googleusercontent.com",
+		"GOOGLE_REDIRECT_URI": "https://lim-udelar.proyecto-viviana.workers.dev/api/auth/callback"
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "lim-db",
+			"database_id": "ec3b8d72-9de1-438d-bd79-7993f02b7429"
+		}
+	],
+	"r2_buckets": [
+		{
+			"binding": "MATERIALS_BUCKET",
+			"bucket_name": "lim-materials"
+		}
+	]
 }
