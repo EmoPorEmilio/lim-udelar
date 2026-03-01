@@ -37,6 +37,7 @@ const getAuthUser = createServerFn({ method: 'GET' }).handler(async (): Promise<
       email: result.user.email,
       name: result.user.name,
       avatarUrl: result.user.avatarUrl,
+      role: result.user.role,
     }
   } catch {
     return null
@@ -69,14 +70,14 @@ export const Route = createRootRoute({
 })
 
 function RootComponent() {
-  const { user } = Route.useRouteContext()
+  const context = Route.useRouteContext()
 
   onMount(() => {
     initTheme()
   })
 
   return (
-    <AuthContext.Provider value={{ user: user ?? null }}>
+    <AuthContext.Provider value={{ user: context().user ?? null }}>
       <Outlet />
     </AuthContext.Provider>
   )

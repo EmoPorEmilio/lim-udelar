@@ -20,7 +20,8 @@ export function AuthButton() {
         <div style={{ "display": "flex", "align-items": "center", "gap": "0.75rem" }}>
           <Avatar
             src={user().avatarUrl || undefined}
-            name={user().name}
+            alt={user().name}
+            fallback={user().name.charAt(0)}
             size="sm"
           />
           <form action="/api/auth/logout" method="post">

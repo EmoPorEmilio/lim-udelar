@@ -32,7 +32,7 @@ async function fetchMaterials(params: { search?: string; semester?: string }): P
     }
     throw new Error('Error al cargar materiales')
   }
-  const data = await res.json()
+  const data: { materials: Material[] } = await res.json()
   return data.materials
 }
 
@@ -42,7 +42,7 @@ function formatFileSize(bytes: number): string {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
 }
 
-const areaBadgeVariant: Record<string, string> = {
+const areaBadgeVariant: Record<string, 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger'> = {
   ING: 'primary',
   ICM: 'accent',
   CI: 'success',
@@ -188,7 +188,7 @@ function MaterialesPage() {
                         style={{ padding: "0.5rem", color: "var(--color-text-secondary)" }}
                       />
                     </label>
-                    <Button type="submit" variant="accent" disabled={uploading()}>
+                    <Button type="submit" variant="accent" isDisabled={uploading()}>
                       {uploading() ? 'Subiendo...' : 'Subir'}
                     </Button>
                   </form>
@@ -258,7 +258,7 @@ function MaterialesPage() {
                           </td>
                           <td style={{ padding: "0.75rem", "text-align": "center" }}>
                             <a href={`/api/materiales/${material.id}/download`}>
-                              <Button variant="primary" size="sm" fill="outline">
+                              <Button variant="primary" size="sm" buttonStyle="outline">
                                 Descargar
                               </Button>
                             </a>

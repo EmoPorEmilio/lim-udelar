@@ -61,7 +61,7 @@ function HomePage() {
             <Button variant="accent">Ingresar con Google</Button>
           </a>
           <Link to="/curriculum" style={{ 'text-decoration': 'none' }}>
-            <Button variant="primary" fill="outline">Ver Plan de Estudios</Button>
+            <Button variant="primary" buttonStyle="outline">Ver Plan de Estudios</Button>
           </Link>
         </div>
 
