@@ -1,0 +1,44 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+.cache
+
+# Environment
+.env
+.env.*
+
+# Platform
+.DS_Store
+Thumbs.db
+
+# Cloudflare
+.wrangler
+.dev.vars
+
+# IDE / Editor
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Claude Code
+.claude/settings.local.json
+
+# TanStack
+.tanstack
+
+# Vitest
+.vitest-attachments
+
+# Logs
+*.log
+npm-debug.log*
+
+# TypeScript
+*.tsbuildinfo
+
+# Misc
+.turbo
