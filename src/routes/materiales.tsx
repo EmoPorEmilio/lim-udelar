@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/solid-router'
 import { createSignal, createResource, For, Show, Suspense } from 'solid-js'
 import { isServer } from 'solid-js/web'
 import { Button, Badge, Dialog, DialogTrigger } from '@proyecto-viviana/ui'
-import { AppHeader } from '../components/AppHeader'
+import { PageShell } from '../components/layouts/PageShell'
 
 interface Material {
   id: string
@@ -108,8 +108,7 @@ function MaterialesPage() {
   }
 
   return (
-    <div class="vui-page vui-page--with-header">
-      <AppHeader />
+    <PageShell class="vui-page vui-page--with-header">
 
       <section class="vui-section">
         <div class="vui-section__container">
@@ -285,6 +284,6 @@ function MaterialesPage() {
           </p>
         </div>
       </footer>
-    </div>
+    </PageShell>
   )
 }

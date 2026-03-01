@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite'
-import deno from '@deno/vite-plugin'
 import tsConfigPaths from 'vite-tsconfig-paths'
 import { cloudflare } from '@cloudflare/vite-plugin'
 import { tanstackStart } from '@tanstack/solid-start/plugin/vite'
@@ -33,7 +32,6 @@ export default defineConfig(({ command }) => {
       ],
     },
     plugins: [
-      deno(),
       tailwindcss(),
       tsConfigPaths({
         projects: ['./tsconfig.json'],

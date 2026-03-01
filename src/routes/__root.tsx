@@ -1,7 +1,8 @@
 /// <reference types="vite/client" />
 import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/solid-router'
 import { HydrationScript } from 'solid-js/web'
-import type { JSX } from 'solid-js'
+import { onMount, type JSX } from 'solid-js'
+import { initTheme } from '../theme'
 import { DefaultCatchBoundary } from '../components/DefaultCatchBoundary'
 import { NotFound } from '../components/NotFound'
 import { AuthContext } from '../auth/context'
@@ -69,6 +70,10 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   const { user } = Route.useRouteContext()
+
+  onMount(() => {
+    initTheme()
+  })
 
   return (
     <AuthContext.Provider value={{ user: user ?? null }}>

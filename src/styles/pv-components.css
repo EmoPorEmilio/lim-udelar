@@ -646,8 +646,14 @@
   align-items: center;
   padding: 16px 24px;
   padding-bottom: 24px;
-  background: linear-gradient(to bottom, var(--color-surface-elevated) 0%, var(--color-surface-elevated) 40%, transparent 100%);
+  background: linear-gradient(to bottom, var(--color-header-bg) 0%, var(--color-header-bg) 40%, transparent 100%);
   transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.vui-header--hidden {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
 }
 
 .vui-header__container {
@@ -655,6 +661,58 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+}
+
+/* Wire border SVG */
+.vui-header__wire-border {
+  position: absolute;
+  bottom: -16px;
+  left: -5%;
+  width: 110%;
+  height: 36px;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.vui-header__wire-pulse {
+  stroke: var(--color-text);
+  opacity: 0.8;
+}
+
+.vui-header__wire-pulse--blue {
+  animation: silapse-pulse 2.5s linear infinite;
+}
+
+.vui-header__wire-pulse--pink {
+  animation: silapse-pulse 2s linear infinite;
+}
+
+@keyframes silapse-pulse {
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -58; }
+}
+
+/* Theme toggle button */
+.vui-header__theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: 2px solid var(--color-bg-200);
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+  clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px);
+  padding: 0;
+}
+
+.vui-header__theme-toggle:hover {
+  border-color: var(--color-blue-300);
+}
+
+[data-theme="light"] .vui-header__theme-toggle:hover {
+  border-color: var(--color-accent);
 }
 
 .vui-header__nav {

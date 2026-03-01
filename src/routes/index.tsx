@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/solid-router'
 import { Logo, Button } from '@proyecto-viviana/ui'
-import { AppHeader } from '../components/AppHeader'
+import { PageShell } from '../components/layouts/PageShell'
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -8,8 +8,7 @@ export const Route = createFileRoute('/')({
 
 function HomePage() {
   return (
-    <div class="vui-landing">
-      <AppHeader />
+    <PageShell class="vui-landing">
 
       {/* Hero — full height, centered */}
       <main style={{
@@ -115,7 +114,7 @@ function HomePage() {
           <span style={{ color: 'var(--color-primary-300)' }}>Udelar</span>
         </div>
       </footer>
-    </div>
+    </PageShell>
   )
 }
 
