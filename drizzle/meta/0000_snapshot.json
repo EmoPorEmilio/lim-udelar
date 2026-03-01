@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "90ceba89-4a45-4308-8796-ba0bdeedf827",
+  "id": "f74d9101-0d8c-4bcd-ae52-aa40cdabd936",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "materials": {
@@ -208,6 +208,14 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'student'"
         },
         "created_at": {
           "name": "created_at",

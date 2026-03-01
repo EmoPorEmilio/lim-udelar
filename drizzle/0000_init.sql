@@ -29,6 +29,7 @@ CREATE TABLE `users` (
 	`email` text NOT NULL,
 	`name` text NOT NULL,
 	`avatar_url` text,
+	`role` text DEFAULT 'student' NOT NULL,
 	`created_at` integer,
 	`updated_at` integer
 );
