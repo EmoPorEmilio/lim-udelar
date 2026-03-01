@@ -1,7 +1,8 @@
 import { createMiddleware } from '@tanstack/solid-start'
 import { getRequestEvent } from 'solid-js/web'
 import { getDb } from '../db/index'
-import { validateSession } from './session'
+import { validateSession, sessionCookieString } from './session'
+import type { SessionValidationResult } from './session'
 
 function getCloudflareEnv() {
   const event = getRequestEvent()
@@ -19,6 +20,13 @@ function getCookie(name: string): string | undefined {
   return match ? decodeURIComponent(match[1]) : undefined
 }
 
+function getIsSecure(): boolean {
+  const event = getRequestEvent()
+  if (!event) return false
+  const url = (event as any).request?.url
+  return url ? new URL(url).protocol === 'https:' : false
+}
+
 export const authMiddleware = createMiddleware().server(async ({ next }) => {
   let user = null
   let db = null
@@ -32,6 +40,16 @@ export const authMiddleware = createMiddleware().server(async ({ next }) => {
       const result = await validateSession(db, token)
       if (result) {
         user = result.user
+        if (result.sessionExtended) {
+          const event = getRequestEvent()
+          if (event) {
+            const isSecure = getIsSecure()
+            ;(event as any).nativeEvent.node?.res?.appendHeader?.(
+              'Set-Cookie',
+              sessionCookieString(token, isSecure),
+            )
+          }
+        }
       }
     }
   } catch {
@@ -54,6 +72,16 @@ export const requireAuthMiddleware = createMiddleware().server(async ({ next }) 
       const result = await validateSession(db, token)
       if (result) {
         user = result.user
+        if (result.sessionExtended) {
+          const event = getRequestEvent()
+          if (event) {
+            const isSecure = getIsSecure()
+            ;(event as any).nativeEvent.node?.res?.appendHeader?.(
+              'Set-Cookie',
+              sessionCookieString(token, isSecure),
+            )
+          }
+        }
       }
     }
   } catch {
