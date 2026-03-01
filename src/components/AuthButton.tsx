@@ -1,15 +1,19 @@
 import { Show } from 'solid-js'
+import { useLocation } from '@tanstack/solid-router'
 import { Button, Avatar } from '@proyecto-viviana/ui'
 import { useAuth } from '../auth/context'
 
 export function AuthButton() {
   const auth = useAuth()
+  const location = useLocation()
+
+  const loginUrl = () => `/api/auth/google?returnTo=${encodeURIComponent(location().pathname)}`
 
   return (
     <Show
       when={auth.user}
       fallback={
-        <a href="/api/auth/google">
+        <a href={loginUrl()}>
           <Button variant="accent" size="sm">
             Ingresar con Google
           </Button>

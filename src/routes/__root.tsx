@@ -37,6 +37,7 @@ const getAuthUser = createServerFn({ method: 'GET' }).handler(async (): Promise<
       email: result.user.email,
       name: result.user.name,
       avatarUrl: result.user.avatarUrl,
+      username: result.user.username,
       role: result.user.role,
     }
   } catch {

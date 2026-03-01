@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from '@tanstack/solid-router'
+import { createFileRoute, Link, useLocation } from '@tanstack/solid-router'
 import { Logo, Button } from '@proyecto-viviana/ui'
 import { PageShell } from '../components/layouts/PageShell'
 
@@ -7,6 +7,9 @@ export const Route = createFileRoute('/')({
 })
 
 function HomePage() {
+  const location = useLocation()
+  const loginUrl = () => `/api/auth/google?returnTo=${encodeURIComponent(location().pathname)}`
+
   return (
     <PageShell class="vui-landing">
 
@@ -57,7 +60,7 @@ function HomePage() {
 
         {/* CTA Buttons */}
         <div style={{ display: 'flex', gap: '12px', 'flex-wrap': 'wrap', 'justify-content': 'center' }}>
-          <a href="/api/auth/google" style={{ 'text-decoration': 'none' }}>
+          <a href={loginUrl()} style={{ 'text-decoration': 'none' }}>
             <Button variant="accent">Ingresar con Google</Button>
           </a>
           <Link to="/curriculum" style={{ 'text-decoration': 'none' }}>

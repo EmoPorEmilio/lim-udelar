@@ -24,6 +24,7 @@ export async function handleAuthMe(request: Request, env: Record<string, any>): 
       email: result.user.email,
       name: result.user.name,
       avatarUrl: result.user.avatarUrl,
+      username: result.user.username,
       role: result.user.role,
     },
   })

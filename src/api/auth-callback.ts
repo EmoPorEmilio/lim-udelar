@@ -25,6 +25,10 @@ export async function handleAuthCallback(request: Request, env: Record<string, a
     return new Response('Invalid OAuth state', { status: 400 })
   }
 
+  // Read return URL from cookie (default /)
+  let returnTo = getCookieValue(cookieHeader, 'oauth_return_to') || '/'
+  if (!returnTo.startsWith('/')) returnTo = '/'
+
   try {
     const google = createGoogleOAuth(env.GOOGLE_CLIENT_ID, env.GOOGLE_CLIENT_SECRET, env.GOOGLE_REDIRECT_URI)
     const tokens = await google.validateAuthorizationCode(code, codeVerifier)
@@ -38,9 +42,11 @@ export async function handleAuthCallback(request: Request, env: Record<string, a
       .limit(1)
 
     let userId: string
+    let username: string | null = null
 
     if (existing.length > 0) {
       userId = existing[0].id
+      username = existing[0].username
       await db
         .update(users)
         .set({
@@ -63,12 +69,18 @@ export async function handleAuthCallback(request: Request, env: Record<string, a
 
     const sessionToken = await createSession(db, userId)
 
+    // Redirect: if no username yet, send to onboarding; otherwise to returnTo
+    const redirectTo = username === null
+      ? `/bienvenida?returnTo=${encodeURIComponent(returnTo)}`
+      : returnTo
+
     const clearFlags = `HttpOnly; SameSite=Lax; Path=/; Max-Age=0${isSecure ? '; Secure' : ''}`
     const headers = new Headers()
-    headers.set('Location', '/materiales')
+    headers.set('Location', redirectTo)
     headers.append('Set-Cookie', sessionCookieString(sessionToken, isSecure))
     headers.append('Set-Cookie', `oauth_state=; ${clearFlags}`)
     headers.append('Set-Cookie', `oauth_code_verifier=; ${clearFlags}`)
+    headers.append('Set-Cookie', `oauth_return_to=; ${clearFlags}`)
 
     return new Response(null, { status: 302, headers })
   } catch (err) {
