@@ -2,19 +2,25 @@ import { createSignal, onCleanup, onMount } from 'solid-js'
 import { isServer } from 'solid-js/web'
 
 const [isMobile, setIsMobile] = createSignal(false)
-let listenerAttached = false
+let listenerCount = 0
+
+const check = () => setIsMobile(window.innerWidth < 768)
 
 export function useMobile() {
   onMount(() => {
-    if (isServer || listenerAttached) return
-    listenerAttached = true
+    if (isServer) return
 
-    const check = () => setIsMobile(window.innerWidth < 768)
     check()
-    window.addEventListener('resize', check)
+    listenerCount++
+    if (listenerCount === 1) {
+      window.addEventListener('resize', check)
+    }
+
     onCleanup(() => {
-      window.removeEventListener('resize', check)
-      listenerAttached = false
+      listenerCount--
+      if (listenerCount === 0) {
+        window.removeEventListener('resize', check)
+      }
     })
   })
 

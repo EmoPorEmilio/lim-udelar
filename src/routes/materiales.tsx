@@ -9,6 +9,7 @@ import { useMobile } from '../hooks/useMobile'
 import { useDebounce } from '../hooks/useDebounce'
 import { useAuth } from '../auth/context'
 import { formatFileSize } from '../utils/format'
+import { getLoginUrl } from '../utils/auth'
 
 const MAX_UPLOAD_SIZE = 50 * 1024 * 1024 // 50 MB
 
@@ -46,7 +47,7 @@ async function fetchMaterials(params: { search?: string; semester?: string; page
   const res = await fetch(`/api/materiales?${query.toString()}`)
   if (!res.ok) {
     if (res.status === 401) {
-      window.location.href = '/api/auth/google?returnTo=/materiales'
+      window.location.href = getLoginUrl('/materiales')
       return { materials: [], page: 1, totalPages: 0, total: 0 }
     }
     throw new Error('Error al cargar materiales')
@@ -176,10 +177,14 @@ function MaterialesPage() {
         refetch()
         refreshQuota()
       } else if (res.status === 401) {
-        window.location.href = '/api/auth/google?returnTo=/materiales'
+        window.location.href = getLoginUrl('/materiales')
       } else {
-        const data: { error?: string } = await res.json()
-        toastError(data.error || 'Error al subir el material')
+        let msg = 'Error al subir el material'
+        try {
+          const data: { error?: string } = await res.json()
+          if (data.error) msg = data.error
+        } catch { /* non-JSON response */ }
+        toastError(msg)
       }
     } finally {
       setUploading(false)
@@ -197,8 +202,12 @@ function MaterialesPage() {
         refetch()
         refreshQuota()
       } else {
-        const data: { error?: string } = await res.json()
-        toastError(data.error || 'Error al eliminar el material')
+        let msg = 'Error al eliminar el material'
+        try {
+          const data: { error?: string } = await res.json()
+          if (data.error) msg = data.error
+        } catch { /* non-JSON response */ }
+        toastError(msg)
       }
     } catch {
       toastError('Error de conexión')
@@ -263,7 +272,7 @@ function MaterialesPage() {
               isOpen={uploadOpen()}
               onOpenChange={setUploadOpen}
               isDismissable
-              trigger={<Button variant="accent">Subir Material</Button>}
+              trigger={<Button variant="accent" onPress={() => setUploadOpen(true)}>Subir Material</Button>}
               content={(close) => (
                 <Dialog title="Subir Material" isDismissable onClose={close} size="md">
                   <form onSubmit={handleUpload} style={{ display: "flex", "flex-direction": "column", gap: "1rem" }}>
@@ -301,6 +310,7 @@ function MaterialesPage() {
                         type="file"
                         name="file"
                         required
+                        accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.zip,.7z,.rar,.gz,.txt,.csv,.md,.png,.jpg,.jpeg,.gif,.webp,.mp3,.wav,.mp4,.webm"
                         style={{ padding: "0.5rem", color: "var(--color-text-secondary)" }}
                       />
                     </label>
@@ -368,9 +378,9 @@ function MaterialesPage() {
                           <td style={{ "text-align": "right", color: "var(--color-text-muted)" }}>
                             {new Date(material.createdAt).toLocaleDateString('es-UY')}
                           </td>
-                          <td style={{ "text-align": "center" }}>
-                            <div style={{ display: "flex", gap: "0.5rem", "justify-content": "center" }}>
-                              <a href={`/api/materiales/${material.id}/download`}>
+                          <td style={{ "text-align": "center", "white-space": "nowrap" }}>
+                            <div style={{ display: "inline-flex", gap: "0.5rem", "justify-content": "center" }}>
+                              <a href={`/api/materiales/${material.id}/download`} download={material.fileName}>
                                 <Button variant="primary" size="sm" buttonStyle="outline">
                                   Descargar
                                 </Button>

@@ -1,6 +1,7 @@
 import { createSignal, onMount, onCleanup, Show } from 'solid-js'
 import { Link, useLocation } from '@tanstack/solid-router'
 import { AuthButton } from './AuthButton'
+import { ThemeToggle } from './ThemeToggle'
 import { useTheme } from '../theme'
 import { useMobile } from '../hooks/useMobile'
 
@@ -9,31 +10,33 @@ import { useMobile } from '../hooks/useMobile'
 // ========================================
 
 const [headerVisible, setHeaderVisible] = createSignal(true)
-let scrollListenerAttached = false
+let scrollListenerCount = 0
+let lastScrollY = 0
+
+const handleScroll = () => {
+  const currentScrollY = window.scrollY
+
+  if (currentScrollY < lastScrollY || currentScrollY < 50) {
+    setHeaderVisible(true)
+  } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+    setHeaderVisible(false)
+  }
+
+  lastScrollY = currentScrollY
+}
 
 export function useScrollDirection() {
   onMount(() => {
-    if (scrollListenerAttached) return
-    scrollListenerAttached = true
-
-    let lastScrollY = 0
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY
-
-      if (currentScrollY < lastScrollY || currentScrollY < 50) {
-        setHeaderVisible(true)
-      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setHeaderVisible(false)
-      }
-
-      lastScrollY = currentScrollY
+    scrollListenerCount++
+    if (scrollListenerCount === 1) {
+      window.addEventListener('scroll', handleScroll, { passive: true })
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-
     onCleanup(() => {
-      window.removeEventListener('scroll', handleScroll)
-      scrollListenerAttached = false
+      scrollListenerCount--
+      if (scrollListenerCount === 0) {
+        window.removeEventListener('scroll', handleScroll)
+      }
     })
   })
 
@@ -92,40 +95,6 @@ function HeaderWireBorder() {
       <path d={pinkWirePath} fill="none" stroke-width="2" stroke-linecap="round" style={{ stroke: 'var(--color-accent)', filter: 'drop-shadow(0 0 4px var(--color-accent-glow))' }} />
       <path d={pinkWirePath} fill="none" stroke-width="2" stroke-linecap="round" stroke-dasharray="8 50" class="vui-header__wire-pulse vui-header__wire-pulse--pink" />
     </svg>
-  )
-}
-
-// ========================================
-// THEME TOGGLE COMPONENT
-// ========================================
-
-function ThemeToggle(props: { isDark: boolean; onToggle: () => void }) {
-  return (
-    <button
-      onClick={props.onToggle}
-      title={props.isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
-      aria-label={props.isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
-      class="vui-header__theme-toggle"
-    >
-      <Show when={props.isDark}>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style={{ stroke: 'var(--color-blue-300)' }} aria-hidden="true">
-          <circle cx="12" cy="12" r="5" />
-          <line x1="12" y1="1" x2="12" y2="3" />
-          <line x1="12" y1="21" x2="12" y2="23" />
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-          <line x1="1" y1="12" x2="3" y2="12" />
-          <line x1="21" y1="12" x2="23" y2="12" />
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-        </svg>
-      </Show>
-      <Show when={!props.isDark}>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style={{ stroke: 'var(--color-accent)' }} aria-hidden="true">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-        </svg>
-      </Show>
-    </button>
   )
 }
 

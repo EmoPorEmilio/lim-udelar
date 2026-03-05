@@ -3,14 +3,13 @@ import { createGoogleOAuth } from '../auth/google'
 import { validateSession } from '../auth/session'
 import { getDb } from '../db/index'
 import { getSessionToken, isSecure } from './utils'
+import { sanitizeReturnTo } from './validation'
 
 export async function handleAuthGoogle(request: Request, env: Env): Promise<Response> {
   const url = new URL(request.url)
   const secure = isSecure(request)
 
-  // Read returnTo from query param, validate it starts with /
-  let returnTo = url.searchParams.get('returnTo') || '/'
-  if (!returnTo.startsWith('/')) returnTo = '/'
+  const returnTo = sanitizeReturnTo(url.searchParams.get('returnTo') || '/')
 
   // If user already has a valid session, skip OAuth and redirect directly
   const token = getSessionToken(request)

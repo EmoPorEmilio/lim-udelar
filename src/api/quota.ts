@@ -11,12 +11,13 @@ export function getDefaultQuota(role: string): number {
   return DEFAULT_QUOTAS[role] ?? DEFAULT_QUOTAS.student
 }
 
-export async function checkQuota(
+export async function tryReserveQuota(
   db: Db,
   userId: string,
-  additionalBytes: number,
-): Promise<{ allowed: true } | { allowed: false; used: number; quota: number }> {
-  const result = await db
+  bytes: number,
+): Promise<{ reserved: true } | { reserved: false; used: number; quota: number }> {
+  // First check if there's enough quota
+  const row = await db
     .select({
       storageBytesUsed: users.storageBytesUsed,
       storageQuotaBytes: users.storageQuotaBytes,
@@ -25,17 +26,28 @@ export async function checkQuota(
     .where(eq(users.id, userId))
     .limit(1)
 
-  if (result.length === 0) {
-    return { allowed: false, used: 0, quota: 0 }
+  if (row.length === 0) {
+    return { reserved: false, used: 0, quota: 0 }
   }
 
-  const { storageBytesUsed, storageQuotaBytes } = result[0]
+  const { storageBytesUsed, storageQuotaBytes } = row[0]
 
-  if (storageBytesUsed + additionalBytes > storageQuotaBytes) {
-    return { allowed: false, used: storageBytesUsed, quota: storageQuotaBytes }
+  if (storageBytesUsed + bytes > storageQuotaBytes) {
+    return { reserved: false, used: storageBytesUsed, quota: storageQuotaBytes }
   }
 
-  return { allowed: true }
+  // Reserve the quota atomically — the WHERE clause ensures we don't exceed
+  await db
+    .update(users)
+    .set({
+      storageBytesUsed: sql`${users.storageBytesUsed} + ${bytes}`,
+      updatedAt: new Date(),
+    })
+    .where(
+      sql`${users.id} = ${userId} AND ${users.storageBytesUsed} + ${bytes} <= ${users.storageQuotaBytes}`,
+    )
+
+  return { reserved: true }
 }
 
 export async function adjustUsage(db: Db, userId: string, delta: number): Promise<void> {
@@ -43,6 +55,7 @@ export async function adjustUsage(db: Db, userId: string, delta: number): Promis
     .update(users)
     .set({
       storageBytesUsed: sql`MAX(0, ${users.storageBytesUsed} + ${delta})`,
+      updatedAt: new Date(),
     })
     .where(eq(users.id, userId))
 }

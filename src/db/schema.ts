@@ -1,4 +1,6 @@
-import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
+import { sqliteTable, text, integer, index } from 'drizzle-orm/sqlite-core'
+
+export type UserRole = 'student' | 'admin'
 
 export const users = sqliteTable('users', {
   id: text('id').primaryKey(),
@@ -39,4 +41,8 @@ export const materials = sqliteTable('materials', {
     .references(() => users.id, { onDelete: 'cascade' }),
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
   updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
-})
+}, (table) => [
+  index('materials_uploaded_by_idx').on(table.uploadedBy),
+  index('materials_semester_idx').on(table.semester),
+  index('materials_created_at_idx').on(table.createdAt),
+])

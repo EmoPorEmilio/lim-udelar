@@ -17,6 +17,7 @@ export async function handleAuthAvatar(request: Request, env: Env, userId: strin
     headers: {
       'Content-Type': obj.httpMetadata?.contentType || 'image/png',
       'Cache-Control': 'public, max-age=86400',
+      'X-Content-Type-Options': 'nosniff',
     },
   })
 }

@@ -2,12 +2,13 @@ import { Show } from 'solid-js'
 import { Link, useLocation } from '@tanstack/solid-router'
 import { Button, Avatar } from '@proyecto-viviana/ui'
 import { useAuth } from '../auth/context'
+import { getLoginUrl } from '../utils/auth'
 
 export function AuthButton() {
   const auth = useAuth()
   const location = useLocation()
 
-  const loginUrl = () => `/api/auth/google?returnTo=${encodeURIComponent(location().pathname)}`
+  const loginUrl = () => getLoginUrl(location().pathname)
 
   return (
     <Show

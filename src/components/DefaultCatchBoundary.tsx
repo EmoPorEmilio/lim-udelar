@@ -17,28 +17,73 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
   console.error('DefaultCatchBoundary Error:', error)
 
   return (
-    <div class="min-w-0 flex-1 p-4 flex flex-col items-center justify-center gap-6">
+    <div style={{
+      'min-width': '0',
+      flex: '1',
+      padding: '2rem',
+      display: 'flex',
+      'flex-direction': 'column',
+      'align-items': 'center',
+      'justify-content': 'center',
+      gap: '1.5rem',
+    }}>
       <ErrorComponent error={error} />
-      <div class="flex gap-2 items-center flex-wrap">
+      <div style={{
+        display: 'flex',
+        gap: '0.75rem',
+        'align-items': 'center',
+        'flex-wrap': 'wrap',
+      }}>
         <button
           onClick={() => {
             router.invalidate()
           }}
-          class={`px-2 py-1 bg-gray-600 dark:bg-gray-700 rounded-sm text-white uppercase font-extrabold`}
+          style={{
+            padding: '0.375rem 0.75rem',
+            background: 'var(--color-surface-elevated)',
+            border: '1px solid var(--color-border)',
+            color: 'var(--color-text)',
+            'font-family': 'var(--font-title)',
+            'font-weight': '700',
+            'font-size': '0.75rem',
+            'text-transform': 'uppercase',
+            cursor: 'pointer',
+            'clip-path': 'polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)',
+          }}
         >
           Reintentar
         </button>
         {isRoot() ? (
           <Link
             to="/"
-            class={`px-2 py-1 bg-gray-600 dark:bg-gray-700 rounded-sm text-white uppercase font-extrabold`}
+            style={{
+              padding: '0.375rem 0.75rem',
+              background: 'var(--color-accent)',
+              color: 'white',
+              'text-decoration': 'none',
+              'font-family': 'var(--font-title)',
+              'font-weight': '700',
+              'font-size': '0.75rem',
+              'text-transform': 'uppercase',
+              'clip-path': 'polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)',
+            }}
           >
             Inicio
           </Link>
         ) : (
           <Link
             to="/"
-            class={`px-2 py-1 bg-gray-600 dark:bg-gray-700 rounded-sm text-white uppercase font-extrabold`}
+            style={{
+              padding: '0.375rem 0.75rem',
+              background: 'var(--color-accent)',
+              color: 'white',
+              'text-decoration': 'none',
+              'font-family': 'var(--font-title)',
+              'font-weight': '700',
+              'font-size': '0.75rem',
+              'text-transform': 'uppercase',
+              'clip-path': 'polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)',
+            }}
             onClick={(e) => {
               e.preventDefault()
               window.history.back()

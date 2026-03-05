@@ -5,6 +5,7 @@ import { getDb } from '../db/index'
 import { users } from '../db/schema'
 import { getCookie, isSecure } from './utils'
 import { getDefaultQuota } from './quota'
+import { sanitizeReturnTo } from './validation'
 
 export async function handleAuthCallback(request: Request, env: Env): Promise<Response> {
   const db = getDb(env.DB)
@@ -21,9 +22,7 @@ export async function handleAuthCallback(request: Request, env: Env): Promise<Re
     return Response.json({ error: 'Invalid OAuth state' }, { status: 400 })
   }
 
-  // Read return URL from cookie (default /)
-  let returnTo = getCookie(request, 'oauth_return_to') || '/'
-  if (!returnTo.startsWith('/')) returnTo = '/'
+  const returnTo = sanitizeReturnTo(getCookie(request, 'oauth_return_to') || '/')
 
   try {
     const redirectUri = new URL('/api/auth/callback', request.url).origin + '/api/auth/callback'

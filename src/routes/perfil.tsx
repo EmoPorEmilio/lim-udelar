@@ -1,11 +1,13 @@
 import { createFileRoute, redirect } from '@tanstack/solid-router'
-import { createSignal, Show } from 'solid-js'
+import { createSignal, Show, onCleanup } from 'solid-js'
 import { Avatar } from '@proyecto-viviana/ui'
 import { toastSuccess, toastError } from '@proyecto-viviana/ui/toast'
 import { PageShell } from '../components/layouts/PageShell'
 import { useAuth } from '../auth/context'
 import type { AuthUser } from '../auth/context'
 import { formatFileSize } from '../utils/format'
+import { getLoginUrl } from '../utils/auth'
+import { USERNAME_RE, MAX_AVATAR_SIZE } from '../api/validation'
 
 export const Route = createFileRoute('/perfil')({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -16,14 +18,11 @@ export const Route = createFileRoute('/perfil')({
   beforeLoad: ({ context }) => {
     const user = (context as { user: AuthUser | null }).user
     if (!user) {
-      throw redirect({ href: '/api/auth/google' })
+      throw redirect({ href: getLoginUrl('/perfil') })
     }
   },
   component: PerfilPage,
 })
-
-const USERNAME_RE = /^[a-zA-Z0-9_]{3,20}$/
-const MAX_AVATAR_SIZE = 2 * 1024 * 1024 // 2 MB
 
 function PerfilPage() {
   const auth = useAuth()
@@ -37,6 +36,8 @@ function PerfilPage() {
   const [avatarPreview, setAvatarPreview] = createSignal<string | null>(null)
   const [error, setError] = createSignal('')
   const [submitting, setSubmitting] = createSignal(false)
+
+  onCleanup(() => { const p = avatarPreview(); if (p) URL.revokeObjectURL(p) })
 
   const usernameValid = () => USERNAME_RE.test(username())
 
@@ -53,6 +54,10 @@ function PerfilPage() {
     }
 
     setAvatarFile(file)
+
+    // Revoke old blob URL to avoid memory leak
+    const oldPreview = avatarPreview()
+    if (oldPreview) URL.revokeObjectURL(oldPreview)
 
     if (file) {
       const url = URL.createObjectURL(file)

@@ -7,6 +7,7 @@ import { handleAuthAvatar } from './auth-avatar'
 import { handleMateriales } from './materiales'
 import { handleMaterialDownload } from './material-download'
 import { handleMaterialDelete } from './material-delete'
+import { checkOrigin } from './validation'
 
 const RATE_LIMITED_RESPONSE = (retryAfter: number) =>
   Response.json(
@@ -17,7 +18,7 @@ const RATE_LIMITED_RESPONSE = (retryAfter: number) =>
 export async function handleApiRoute(
   request: Request,
   env: Env,
-): Promise<Response | null> {
+): Promise<Response> {
   const url = new URL(request.url)
   const { pathname } = url
 
@@ -38,6 +39,11 @@ export async function handleApiRoute(
     ) {
       const { success } = await env.UPLOAD_LIMITER.limit({ key: clientIp })
       if (!success) return RATE_LIMITED_RESPONSE(60)
+    }
+
+    // CSRF: verify Origin header for state-changing methods
+    if (request.method !== 'GET' && request.method !== 'HEAD' && !checkOrigin(request)) {
+      return Response.json({ error: 'Origen no permitido' }, { status: 403 })
     }
 
     if (pathname === '/api/auth/google' && request.method === 'GET') {
@@ -74,7 +80,7 @@ export async function handleApiRoute(
       return handleMaterialDelete(request, env, deleteMatch[1])
     }
 
-    return null
+    return Response.json({ error: 'Ruta no encontrada' }, { status: 404 })
   } catch (err) {
     console.error('API error:', err)
     return Response.json({ error: 'Error interno del servidor' }, { status: 500 })

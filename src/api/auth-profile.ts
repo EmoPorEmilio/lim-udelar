@@ -1,9 +1,8 @@
 import { eq } from 'drizzle-orm'
 import { users } from '../db/schema'
 import { requireAuth, isResponse } from './utils'
-import { checkQuota, adjustUsage } from './quota'
-
-const USERNAME_RE = /^[a-zA-Z0-9_]{3,20}$/
+import { tryReserveQuota, adjustUsage } from './quota'
+import { USERNAME_RE, MAX_AVATAR_SIZE } from './validation'
 
 function isValidImageMagicBytes(header: Uint8Array): boolean {
   // JPEG: FF D8 FF
@@ -26,6 +25,12 @@ export async function handleAuthProfile(request: Request, env: Env): Promise<Res
 
   const { user, db } = auth
   const userId = user.id
+
+  // Content-Length early check
+  const contentLength = parseInt(request.headers.get('Content-Length') || '0', 10)
+  if (contentLength > MAX_AVATAR_SIZE + 1024) {
+    return Response.json({ error: 'La solicitud es demasiado grande' }, { status: 400 })
+  }
 
   // Parse FormData
   const formData = await request.formData()
@@ -66,14 +71,15 @@ export async function handleAuthProfile(request: Request, env: Env): Promise<Res
     }
 
     // Validate size (2MB)
-    if (avatar.size > 2 * 1024 * 1024) {
+    if (avatar.size > MAX_AVATAR_SIZE) {
       return Response.json({ error: 'El avatar no puede superar 2MB' }, { status: 400 })
     }
 
-    // Read buffer and validate magic bytes
-    const buffer = await avatar.arrayBuffer()
-    const header = new Uint8Array(buffer).slice(0, 12)
-    if (!isValidImageMagicBytes(header)) {
+    // Read first chunk to validate magic bytes (avoids buffering entire file)
+    const reader = avatar.stream().getReader()
+    const { value: firstChunk } = await reader.read()
+    reader.releaseLock()
+    if (!firstChunk || !isValidImageMagicBytes(firstChunk.slice(0, 12))) {
       return Response.json({ error: 'El archivo no es una imagen válida' }, { status: 400 })
     }
 
@@ -89,25 +95,30 @@ export async function handleAuthProfile(request: Request, env: Env): Promise<Res
 
     const netIncrease = avatar.size - oldSize
     if (netIncrease > 0) {
-      const quotaCheck = await checkQuota(db, userId, netIncrease)
-      if (!quotaCheck.allowed) {
+      const quotaResult = await tryReserveQuota(db, userId, netIncrease)
+      if (!quotaResult.reserved) {
         return Response.json(
-          { error: 'Has alcanzado tu límite de almacenamiento', used: quotaCheck.used, quota: quotaCheck.quota },
+          { error: 'Has alcanzado tu límite de almacenamiento', used: quotaResult.used, quota: quotaResult.quota },
           { status: 413 },
         )
       }
     }
 
     try {
-      await bucket.put(key, buffer, {
+      await bucket.put(key, avatar.stream(), {
         httpMetadata: { contentType: avatar.type },
       })
     } catch (err) {
       console.error('R2 avatar upload error:', err)
+      // Rollback quota reservation if we reserved
+      if (netIncrease > 0) {
+        await adjustUsage(db, userId, -netIncrease)
+      }
       return Response.json({ error: 'Error al subir el avatar' }, { status: 500 })
     }
 
-    if (netIncrease !== 0) {
+    // If replacing a smaller avatar, adjust usage for the negative delta
+    if (netIncrease < 0) {
       await adjustUsage(db, userId, netIncrease)
     }
 

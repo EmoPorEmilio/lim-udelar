@@ -4,6 +4,7 @@ import { Logo, Button } from '@proyecto-viviana/ui'
 import { PageShell } from '../components/layouts/PageShell'
 import { useAuth } from '../auth/context'
 import { useMobile } from '../hooks/useMobile'
+import { getLoginUrl } from '../utils/auth'
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -13,7 +14,7 @@ function HomePage() {
   const auth = useAuth()
   const location = useLocation()
   const isMobile = useMobile()
-  const loginUrl = () => `/api/auth/google?returnTo=${encodeURIComponent(location().pathname)}`
+  const loginUrl = () => getLoginUrl(location().pathname)
 
   return (
     <PageShell class="vui-landing">

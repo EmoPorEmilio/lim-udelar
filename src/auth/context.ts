@@ -1,4 +1,5 @@
 import { createContext, useContext } from 'solid-js'
+import type { UserRole } from '../db/schema'
 
 export interface AuthUser {
   id: string
@@ -6,7 +7,7 @@ export interface AuthUser {
   name: string
   avatarUrl: string | null
   username: string | null
-  role: string
+  role: UserRole
   storageQuotaBytes: number
   storageBytesUsed: number
 }
