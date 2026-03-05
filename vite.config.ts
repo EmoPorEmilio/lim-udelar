@@ -1,3 +1,4 @@
+import path from 'node:path'
 import { defineConfig } from 'vite'
 import tsConfigPaths from 'vite-tsconfig-paths'
 import { cloudflare } from '@cloudflare/vite-plugin'
@@ -5,10 +6,13 @@ import { tanstackStart } from '@tanstack/solid-start/plugin/vite'
 import viteSolid from 'vite-plugin-solid'
 import tailwindcss from '@tailwindcss/vite'
 
-export default defineConfig(({ command }) => {
-  const isBuild = command === 'build'
-
+export default defineConfig(() => {
   return {
+    resolve: {
+      alias: {
+        '@proyecto-viviana/ui/toast': path.resolve(__dirname, 'node_modules/@proyecto-viviana/ui/src/toast/index.tsx'),
+      },
+    },
     server: {
       port: 4002,
     },
@@ -36,7 +40,7 @@ export default defineConfig(({ command }) => {
       tsConfigPaths({
         projects: ['./tsconfig.json'],
       }),
-      ...(isBuild ? [cloudflare({ viteEnvironment: { name: 'ssr' } })] : []),
+      cloudflare({ viteEnvironment: { name: 'ssr' } }),
       tanstackStart(),
       viteSolid({ ssr: true }),
     ],

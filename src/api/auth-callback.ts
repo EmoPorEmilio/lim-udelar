@@ -3,34 +3,31 @@ import { createGoogleOAuth, fetchGoogleUser } from '../auth/google'
 import { createSession, sessionCookieString } from '../auth/session'
 import { getDb } from '../db/index'
 import { users } from '../db/schema'
+import { getCookie, isSecure } from './utils'
+import { getDefaultQuota } from './quota'
 
-function getCookieValue(cookieHeader: string, name: string): string | null {
-  const match = cookieHeader.match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`))
-  return match ? decodeURIComponent(match[1]) : null
-}
-
-export async function handleAuthCallback(request: Request, env: Record<string, any>): Promise<Response> {
+export async function handleAuthCallback(request: Request, env: Env): Promise<Response> {
   const db = getDb(env.DB)
-  const isSecure = new URL(request.url).protocol === 'https:'
+  const secure = isSecure(request)
 
   const url = new URL(request.url)
   const code = url.searchParams.get('code')
   const state = url.searchParams.get('state')
 
-  const cookieHeader = request.headers.get('cookie') || ''
-  const savedState = getCookieValue(cookieHeader, 'oauth_state')
-  const codeVerifier = getCookieValue(cookieHeader, 'oauth_code_verifier')
+  const savedState = getCookie(request, 'oauth_state')
+  const codeVerifier = getCookie(request, 'oauth_code_verifier')
 
   if (!code || !state || state !== savedState || !codeVerifier) {
-    return new Response('Invalid OAuth state', { status: 400 })
+    return Response.json({ error: 'Invalid OAuth state' }, { status: 400 })
   }
 
   // Read return URL from cookie (default /)
-  let returnTo = getCookieValue(cookieHeader, 'oauth_return_to') || '/'
+  let returnTo = getCookie(request, 'oauth_return_to') || '/'
   if (!returnTo.startsWith('/')) returnTo = '/'
 
   try {
-    const google = createGoogleOAuth(env.GOOGLE_CLIENT_ID, env.GOOGLE_CLIENT_SECRET, env.GOOGLE_REDIRECT_URI)
+    const redirectUri = new URL('/api/auth/callback', request.url).origin + '/api/auth/callback'
+    const google = createGoogleOAuth(env.GOOGLE_CLIENT_ID, env.GOOGLE_CLIENT_SECRET, redirectUri)
     const tokens = await google.validateAuthorizationCode(code, codeVerifier)
     const googleUser = await fetchGoogleUser(tokens.accessToken())
 
@@ -64,6 +61,7 @@ export async function handleAuthCallback(request: Request, env: Record<string, a
         email: googleUser.email,
         name: googleUser.name,
         avatarUrl: googleUser.picture,
+        storageQuotaBytes: getDefaultQuota('student'),
       })
     }
 
@@ -71,13 +69,13 @@ export async function handleAuthCallback(request: Request, env: Record<string, a
 
     // Redirect: if no username yet, send to onboarding; otherwise to returnTo
     const redirectTo = username === null
-      ? `/bienvenida?returnTo=${encodeURIComponent(returnTo)}`
+      ? `/perfil?returnTo=${encodeURIComponent(returnTo)}`
       : returnTo
 
-    const clearFlags = `HttpOnly; SameSite=Lax; Path=/; Max-Age=0${isSecure ? '; Secure' : ''}`
+    const clearFlags = `HttpOnly; SameSite=Lax; Path=/; Max-Age=0${secure ? '; Secure' : ''}`
     const headers = new Headers()
     headers.set('Location', redirectTo)
-    headers.append('Set-Cookie', sessionCookieString(sessionToken, isSecure))
+    headers.append('Set-Cookie', sessionCookieString(sessionToken, secure))
     headers.append('Set-Cookie', `oauth_state=; ${clearFlags}`)
     headers.append('Set-Cookie', `oauth_code_verifier=; ${clearFlags}`)
     headers.append('Set-Cookie', `oauth_return_to=; ${clearFlags}`)
@@ -85,6 +83,6 @@ export async function handleAuthCallback(request: Request, env: Record<string, a
     return new Response(null, { status: 302, headers })
   } catch (err) {
     console.error('OAuth callback error:', err)
-    return new Response('Authentication failed', { status: 500 })
+    return Response.json({ error: 'Error de autenticación. Intenta nuevamente.' }, { status: 500 })
   }
 }

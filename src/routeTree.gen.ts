@@ -9,12 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as MaterialesRouteImport } from './routes/materiales'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as CurriculumRouteImport } from './routes/curriculum'
-import { Route as BienvenidaRouteImport } from './routes/bienvenida'
 import { Route as IndexRouteImport } from './routes/index'
 
+const PerfilRoute = PerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MaterialesRoute = MaterialesRouteImport.update({
   id: '/materiales',
   path: '/materiales',
@@ -30,11 +35,6 @@ const CurriculumRoute = CurriculumRouteImport.update({
   path: '/curriculum',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BienvenidaRoute = BienvenidaRouteImport.update({
-  id: '/bienvenida',
-  path: '/bienvenida',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -43,44 +43,51 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/bienvenida': typeof BienvenidaRoute
   '/curriculum': typeof CurriculumRoute
   '/faq': typeof FaqRoute
   '/materiales': typeof MaterialesRoute
+  '/perfil': typeof PerfilRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/bienvenida': typeof BienvenidaRoute
   '/curriculum': typeof CurriculumRoute
   '/faq': typeof FaqRoute
   '/materiales': typeof MaterialesRoute
+  '/perfil': typeof PerfilRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/bienvenida': typeof BienvenidaRoute
   '/curriculum': typeof CurriculumRoute
   '/faq': typeof FaqRoute
   '/materiales': typeof MaterialesRoute
+  '/perfil': typeof PerfilRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/bienvenida' | '/curriculum' | '/faq' | '/materiales'
+  fullPaths: '/' | '/curriculum' | '/faq' | '/materiales' | '/perfil'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/bienvenida' | '/curriculum' | '/faq' | '/materiales'
-  id: '__root__' | '/' | '/bienvenida' | '/curriculum' | '/faq' | '/materiales'
+  to: '/' | '/curriculum' | '/faq' | '/materiales' | '/perfil'
+  id: '__root__' | '/' | '/curriculum' | '/faq' | '/materiales' | '/perfil'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BienvenidaRoute: typeof BienvenidaRoute
   CurriculumRoute: typeof CurriculumRoute
   FaqRoute: typeof FaqRoute
   MaterialesRoute: typeof MaterialesRoute
+  PerfilRoute: typeof PerfilRoute
 }
 
 declare module '@tanstack/solid-router' {
   interface FileRoutesByPath {
+    '/perfil': {
+      id: '/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof PerfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/materiales': {
       id: '/materiales'
       path: '/materiales'
@@ -102,13 +109,6 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof CurriculumRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/bienvenida': {
-      id: '/bienvenida'
-      path: '/bienvenida'
-      fullPath: '/bienvenida'
-      preLoaderRoute: typeof BienvenidaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -121,10 +121,10 @@ declare module '@tanstack/solid-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BienvenidaRoute: BienvenidaRoute,
   CurriculumRoute: CurriculumRoute,
   FaqRoute: FaqRoute,
   MaterialesRoute: MaterialesRoute,
+  PerfilRoute: PerfilRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

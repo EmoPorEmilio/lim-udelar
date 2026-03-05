@@ -1,15 +1,16 @@
-export async function handleAuthAvatar(request: Request, env: Record<string, any>, userId: string): Promise<Response> {
-  const bucket = env.MATERIALS_BUCKET as R2Bucket
+export async function handleAuthAvatar(request: Request, env: Env, userId: string): Promise<Response> {
+  const bucket = env.MATERIALS_BUCKET
 
-  const listed = await bucket.list({ prefix: `avatars/${userId}/` })
-
-  if (listed.objects.length === 0) {
-    return new Response('Not found', { status: 404 })
+  let obj: R2ObjectBody | null
+  try {
+    obj = await bucket.get(`avatars/${userId}/avatar`)
+  } catch (err) {
+    console.error('R2 avatar fetch error:', err)
+    return Response.json({ error: 'Error al obtener el avatar' }, { status: 500 })
   }
 
-  const obj = await bucket.get(listed.objects[0].key)
   if (!obj) {
-    return new Response('Not found', { status: 404 })
+    return Response.json({ error: 'Avatar no encontrado' }, { status: 404 })
   }
 
   return new Response(obj.body, {

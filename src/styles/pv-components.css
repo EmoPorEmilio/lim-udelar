@@ -650,6 +650,13 @@
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
+@media (max-width: 767px) {
+  .vui-header {
+    padding: 12px 16px;
+    padding-bottom: 20px;
+  }
+}
+
 .vui-header--hidden {
   opacity: 0;
   transform: translateY(-10px);
@@ -2125,4 +2132,55 @@
 
 .silapse-tooltip-wrapper:hover .silapse-tooltip {
   opacity: 1;
+}
+
+/* ===== FORM INPUTS ===== */
+
+.vui-input {
+  padding: 0.5rem 1rem;
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px);
+}
+
+.vui-label {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  font-family: var(--font-title);
+}
+
+/* ===== TABLE ===== */
+
+.vui-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.vui-table th {
+  padding: 0.75rem;
+  color: var(--color-text-secondary);
+  font-family: var(--font-title);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.vui-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* ===== SCREEN READER ONLY ===== */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

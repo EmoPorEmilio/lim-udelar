@@ -3,6 +3,7 @@ import { Show } from 'solid-js'
 import { Logo, Button } from '@proyecto-viviana/ui'
 import { PageShell } from '../components/layouts/PageShell'
 import { useAuth } from '../auth/context'
+import { useMobile } from '../hooks/useMobile'
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -11,6 +12,7 @@ export const Route = createFileRoute('/')({
 function HomePage() {
   const auth = useAuth()
   const location = useLocation()
+  const isMobile = useMobile()
   const loginUrl = () => `/api/auth/google?returnTo=${encodeURIComponent(location().pathname)}`
 
   return (
@@ -23,7 +25,7 @@ function HomePage() {
         'flex-direction': 'column',
         'align-items': 'center',
         'justify-content': 'center',
-        padding: '4rem 2rem',
+        padding: isMobile() ? '3rem 1rem' : '4rem 2rem',
         'text-align': 'center',
       }}>
         {/* Tag */}

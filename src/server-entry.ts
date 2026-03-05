@@ -7,7 +7,7 @@ const tanstackFetch = createStartHandler(defaultStreamHandler) as (
 ) => Promise<Response>
 
 export default {
-  async fetch(request: Request, env: Record<string, unknown>, ctx: ExecutionContext) {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext) {
     const url = new URL(request.url)
 
     if (url.pathname.startsWith('/api/')) {
@@ -15,6 +15,6 @@ export default {
       if (response) return response
     }
 
-    return tanstackFetch(request, env, ctx)
+    return tanstackFetch(request, { context: { env } })
   },
 }

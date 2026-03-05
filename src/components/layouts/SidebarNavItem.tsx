@@ -9,6 +9,7 @@ export function SidebarNavItem(props: SidebarNavItemProps) {
   return (
     <button
       onClick={() => props.onClick(props.id)}
+      aria-current={props.active ? 'true' : undefined}
       style={{
         display: "block",
         width: "100%",

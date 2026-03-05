@@ -1,99 +1,30 @@
 import { createMiddleware } from '@tanstack/solid-start'
-import { getRequestEvent } from 'solid-js/web'
+import { getCookie } from '@tanstack/solid-start/server'
 import { getDb } from '../db/index'
-import { validateSession, sessionCookieString } from './session'
-import type { SessionValidationResult } from './session'
+import { validateSession } from './session'
+import type { AuthUser } from './context'
 
-function getCloudflareEnv() {
-  const event = getRequestEvent()
-  if (!event) throw new Error('No request event')
-  return (event as any).nativeEvent.context.cloudflare.env
-}
-
-function getCookie(name: string): string | undefined {
-  const event = getRequestEvent()
-  if (!event) return undefined
-  const cookieHeader = (event as any).nativeEvent.node?.req?.headers?.cookie
-    || (event as any).request?.headers?.get('cookie')
-    || ''
-  const match = cookieHeader.match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`))
-  return match ? decodeURIComponent(match[1]) : undefined
-}
-
-function getIsSecure(): boolean {
-  const event = getRequestEvent()
-  if (!event) return false
-  const url = (event as any).request?.url
-  return url ? new URL(url).protocol === 'https:' : false
-}
-
-export const authMiddleware = createMiddleware().server(async ({ next }) => {
-  let user = null
-  let db = null
-
+export const authMiddleware = createMiddleware().server(async ({ next, context }) => {
+  let user: AuthUser | null = null
   try {
-    const env = getCloudflareEnv()
-    db = getDb(env.DB)
-
     const token = getCookie('session_token')
-    if (token) {
+    const env = (context as unknown as Record<string, unknown>)?.env as Env | undefined
+    if (token && env?.DB) {
+      const db = getDb(env.DB)
       const result = await validateSession(db, token)
       if (result) {
-        user = result.user
-        if (result.sessionExtended) {
-          const event = getRequestEvent()
-          if (event) {
-            const isSecure = getIsSecure()
-            ;(event as any).nativeEvent.node?.res?.appendHeader?.(
-              'Set-Cookie',
-              sessionCookieString(token, isSecure),
-            )
-          }
+        user = {
+          id: result.user.id,
+          email: result.user.email,
+          name: result.user.name,
+          avatarUrl: result.user.avatarUrl,
+          username: result.user.username,
+          role: result.user.role,
+          storageQuotaBytes: result.user.storageQuotaBytes,
+          storageBytesUsed: result.user.storageBytesUsed,
         }
       }
     }
-  } catch {
-    // Not in Cloudflare environment (dev without D1), continue without auth
-  }
-
-  return next({ context: { user, db } })
-})
-
-export const requireAuthMiddleware = createMiddleware().server(async ({ next }) => {
-  let user = null
-  let db = null
-
-  try {
-    const env = getCloudflareEnv()
-    db = getDb(env.DB)
-
-    const token = getCookie('session_token')
-    if (token) {
-      const result = await validateSession(db, token)
-      if (result) {
-        user = result.user
-        if (result.sessionExtended) {
-          const event = getRequestEvent()
-          if (event) {
-            const isSecure = getIsSecure()
-            ;(event as any).nativeEvent.node?.res?.appendHeader?.(
-              'Set-Cookie',
-              sessionCookieString(token, isSecure),
-            )
-          }
-        }
-      }
-    }
-  } catch {
-    // Not in Cloudflare environment
-  }
-
-  if (!user) {
-    throw new Response(null, {
-      status: 302,
-      headers: { Location: '/api/auth/google' },
-    })
-  }
-
-  return next({ context: { user, db } })
+  } catch { /* user stays null */ }
+  return next({ context: { user } })
 })

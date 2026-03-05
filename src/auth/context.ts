@@ -7,6 +7,8 @@ export interface AuthUser {
   avatarUrl: string | null
   username: string | null
   role: string
+  storageQuotaBytes: number
+  storageBytesUsed: number
 }
 
 interface AuthContextValue {

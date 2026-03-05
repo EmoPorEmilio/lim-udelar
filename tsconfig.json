@@ -17,7 +17,8 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "@proyecto-viviana/ui/toast": ["./node_modules/@proyecto-viviana/ui/src/toast/index.tsx"]
     },
     "noEmit": true
   }

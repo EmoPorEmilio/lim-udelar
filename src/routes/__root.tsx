@@ -7,46 +7,19 @@ import { DefaultCatchBoundary } from '../components/DefaultCatchBoundary'
 import { NotFound } from '../components/NotFound'
 import { AuthContext } from '../auth/context'
 import type { AuthUser } from '../auth/context'
+import { ToastProvider, ToastRegion } from '@proyecto-viviana/ui/toast'
 import { createServerFn } from '@tanstack/solid-start'
+import { authMiddleware } from '../auth/middleware'
 import appCss from '../styles/app.css?url'
 
-const getAuthUser = createServerFn({ method: 'GET' }).handler(async (): Promise<AuthUser | null> => {
-  try {
-    const { getRequestEvent } = await import('solid-js/web')
-    const event = getRequestEvent()
-    if (!event) return null
-
-    const env = (event as any).nativeEvent?.context?.cloudflare?.env
-    if (!env?.DB) return null
-
-    const { getDb } = await import('../db/index')
-    const { validateSession } = await import('../auth/session')
-    const db = getDb(env.DB)
-
-    const cookieHeader = (event as any).request?.headers?.get('cookie') || ''
-    const match = cookieHeader.match(/(?:^|;\s*)session_token=([^;]*)/)
-    const token = match ? decodeURIComponent(match[1]) : null
-
-    if (!token) return null
-
-    const result = await validateSession(db, token)
-    if (!result) return null
-
-    return {
-      id: result.user.id,
-      email: result.user.email,
-      name: result.user.name,
-      avatarUrl: result.user.avatarUrl,
-      username: result.user.username,
-      role: result.user.role,
-    }
-  } catch {
-    return null
-  }
-})
+const getAuthUser = createServerFn({ method: 'GET' })
+  .middleware([authMiddleware])
+  .handler(async ({ context }): Promise<AuthUser | null> => {
+    return (context as { user: AuthUser | null }).user ?? null
+  })
 
 export const Route = createRootRoute({
-  beforeLoad: async () => {
+  beforeLoad: async (): Promise<{ user: AuthUser | null }> => {
     const user = await getAuthUser()
     return { user }
   },
@@ -79,7 +52,10 @@ function RootComponent() {
 
   return (
     <AuthContext.Provider value={{ user: context().user ?? null }}>
-      <Outlet />
+      <ToastProvider>
+        <Outlet />
+        <ToastRegion placement="bottom-end" />
+      </ToastProvider>
     </AuthContext.Provider>
   )
 }
@@ -89,9 +65,9 @@ function RootDocument(props: { children: JSX.Element }) {
     <html lang="es">
       <head>
         <HydrationScript />
+        <HeadContent />
       </head>
       <body>
-        <HeadContent />
         {props.children}
         <Scripts />
       </body>

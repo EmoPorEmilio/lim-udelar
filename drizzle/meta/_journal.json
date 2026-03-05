@@ -15,6 +15,27 @@
       "when": 1772385545965,
       "tag": "0001_add-username",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1772493520054,
+      "tag": "0002_add_cascade_deletes",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1772755200000,
+      "tag": "0003_not_null_timestamps_and_indexes",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1772870400000,
+      "tag": "0004_add_storage_quota",
+      "breakpoints": true
     }
   ]
 }

@@ -1,50 +1,38 @@
 import { createFileRoute, redirect } from '@tanstack/solid-router'
 import { createSignal, Show } from 'solid-js'
-import { Button, Avatar } from '@proyecto-viviana/ui'
+import { Avatar } from '@proyecto-viviana/ui'
+import { toastSuccess, toastError } from '@proyecto-viviana/ui/toast'
 import { PageShell } from '../components/layouts/PageShell'
 import { useAuth } from '../auth/context'
+import type { AuthUser } from '../auth/context'
+import { formatFileSize } from '../utils/format'
 
-export const Route = createFileRoute('/bienvenida')({
+export const Route = createFileRoute('/perfil')({
   validateSearch: (search: Record<string, unknown>) => ({
     returnTo: typeof search.returnTo === 'string' && search.returnTo.startsWith('/')
       ? search.returnTo
       : '/',
   }),
   beforeLoad: ({ context }) => {
-    const user = (context as any).user
+    const user = (context as { user: AuthUser | null }).user
     if (!user) {
       throw redirect({ href: '/api/auth/google' })
     }
-    if (user.username) {
-      throw redirect({ to: '/' })
-    }
   },
-  component: BienvenidaPage,
+  component: PerfilPage,
 })
 
 const USERNAME_RE = /^[a-zA-Z0-9_]{3,20}$/
+const MAX_AVATAR_SIZE = 2 * 1024 * 1024 // 2 MB
 
-const inputStyle = {
-  padding: "0.5rem 1rem",
-  background: "var(--color-surface-elevated)",
-  border: "1px solid var(--color-border)",
-  color: "var(--color-text)",
-  "font-family": "var(--font-body)",
-  "clip-path": "polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)",
-  width: "100%",
-} as const
-
-const labelStyle = {
-  color: "var(--color-text-secondary)",
-  "font-size": "0.875rem",
-  "font-family": "var(--font-title)",
-} as const
-
-function BienvenidaPage() {
+function PerfilPage() {
   const auth = useAuth()
   const search = Route.useSearch()
 
-  const [username, setUsername] = createSignal('')
+  const user = () => auth.user!
+  const isNewUser = () => !user().username
+
+  const [username, setUsername] = createSignal(auth.user?.username ?? '')
   const [avatarFile, setAvatarFile] = createSignal<File | null>(null)
   const [avatarPreview, setAvatarPreview] = createSignal<string | null>(null)
   const [error, setError] = createSignal('')
@@ -55,6 +43,15 @@ function BienvenidaPage() {
   function handleAvatarChange(e: Event) {
     const input = e.currentTarget as HTMLInputElement
     const file = input.files?.[0] ?? null
+
+    if (file && file.size > MAX_AVATAR_SIZE) {
+      toastError('El avatar no puede superar 2 MB')
+      input.value = ''
+      setAvatarFile(null)
+      setAvatarPreview(null)
+      return
+    }
+
     setAvatarFile(file)
 
     if (file) {
@@ -90,6 +87,7 @@ function BienvenidaPage() {
       })
 
       if (res.ok) {
+        toastSuccess('Perfil guardado')
         window.location.href = search().returnTo
       } else {
         const data: { error?: string } = await res.json()
@@ -102,7 +100,6 @@ function BienvenidaPage() {
     }
   }
 
-  const user = () => auth.user!
   const displayAvatar = () => avatarPreview() || user().avatarUrl || undefined
 
   return (
@@ -128,14 +125,16 @@ function BienvenidaPage() {
             "font-weight": "700",
             margin: "0 0 0.5rem 0",
           }}>
-            Bienvenido/a, {user().name}
+            {isNewUser() ? <>Bienvenido/a, {user().name}</> : 'Editar perfil'}
           </h1>
           <p style={{
             color: "var(--color-text-secondary)",
             "font-size": "0.875rem",
             margin: "0 0 1.5rem 0",
           }}>
-            Elegí un nombre de usuario para tu perfil.
+            {isNewUser()
+              ? 'Elegí un nombre de usuario para tu perfil.'
+              : 'Modificá tu nombre de usuario o avatar.'}
           </p>
 
           <form onSubmit={handleSubmit} style={{ display: "flex", "flex-direction": "column", gap: "1.25rem" }}>
@@ -162,23 +161,32 @@ function BienvenidaPage() {
                 </span>
                 <input
                   type="file"
-                  accept="image/*"
+                  accept="image/jpeg,image/png,image/gif,image/webp"
                   onChange={handleAvatarChange}
                   style={{ display: "none" }}
                 />
               </label>
+              <Show when={!isNewUser()}>
+                <span style={{
+                  "font-size": "0.75rem",
+                  color: "var(--color-text-muted)",
+                }}>
+                  Almacenamiento: {formatFileSize(user().storageBytesUsed)} / {formatFileSize(user().storageQuotaBytes)}
+                </span>
+              </Show>
             </div>
 
             {/* Username */}
             <label style={{ display: "flex", "flex-direction": "column", gap: "0.25rem" }}>
-              <span style={labelStyle}>Nombre de usuario *</span>
+              <span class="vui-label">Nombre de usuario *</span>
               <input
                 type="text"
                 value={username()}
                 onInput={(e) => setUsername(e.currentTarget.value)}
                 placeholder="ej: maria_lim"
                 maxLength={20}
-                style={inputStyle}
+                class="vui-input"
+                style={{ width: "100%" }}
               />
               <Show when={username().length > 0 && !usernameValid()}>
                 <span style={{ color: "var(--color-danger, #ef4444)", "font-size": "0.75rem" }}>
@@ -202,13 +210,24 @@ function BienvenidaPage() {
             </Show>
 
             {/* Submit */}
-            <Button
+            <button
               type="submit"
-              variant="accent"
-              isDisabled={submitting() || !usernameValid()}
+              disabled={submitting() || !usernameValid()}
+              style={{
+                padding: "0.625rem 1.5rem",
+                background: "var(--color-accent)",
+                color: "white",
+                border: "none",
+                "font-family": "var(--font-title)",
+                "font-weight": "600",
+                "font-size": "0.875rem",
+                cursor: submitting() || !usernameValid() ? "not-allowed" : "pointer",
+                opacity: submitting() || !usernameValid() ? "0.5" : "1",
+                "clip-path": "polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)",
+              }}
             >
               {submitting() ? 'Guardando...' : 'Confirmar'}
-            </Button>
+            </button>
           </form>
         </div>
       </section>

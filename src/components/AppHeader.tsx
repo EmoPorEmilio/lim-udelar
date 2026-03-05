@@ -1,7 +1,8 @@
-import { createSignal, onMount, Show } from 'solid-js'
+import { createSignal, onMount, onCleanup, Show } from 'solid-js'
 import { Link, useLocation } from '@tanstack/solid-router'
 import { AuthButton } from './AuthButton'
 import { useTheme } from '../theme'
+import { useMobile } from '../hooks/useMobile'
 
 // ========================================
 // SCROLL DIRECTION — shared global signal
@@ -29,6 +30,11 @@ export function useScrollDirection() {
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
+
+    onCleanup(() => {
+      window.removeEventListener('scroll', handleScroll)
+      scrollListenerAttached = false
+    })
   })
 
   return headerVisible
@@ -74,6 +80,7 @@ function HeaderWireBorder() {
       class="vui-header__wire-border"
       viewBox="-150 0 1400 42"
       preserveAspectRatio="none"
+      aria-hidden="true"
     >
       {/* Blue wire */}
       <path d={blueWirePath} fill="none" stroke-width="3" stroke-linecap="round" style={{ stroke: 'var(--color-primary-dim)' }} />
@@ -96,11 +103,12 @@ function ThemeToggle(props: { isDark: boolean; onToggle: () => void }) {
   return (
     <button
       onClick={props.onToggle}
-      title={props.isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      title={props.isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+      aria-label={props.isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
       class="vui-header__theme-toggle"
     >
       <Show when={props.isDark}>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style={{ stroke: 'var(--color-blue-300)' }}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style={{ stroke: 'var(--color-blue-300)' }} aria-hidden="true">
           <circle cx="12" cy="12" r="5" />
           <line x1="12" y1="1" x2="12" y2="3" />
           <line x1="12" y1="21" x2="12" y2="23" />
@@ -113,7 +121,7 @@ function ThemeToggle(props: { isDark: boolean; onToggle: () => void }) {
         </svg>
       </Show>
       <Show when={!props.isDark}>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style={{ stroke: 'var(--color-accent)' }}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style={{ stroke: 'var(--color-accent)' }} aria-hidden="true">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
       </Show>
@@ -129,6 +137,8 @@ export function AppHeader() {
   const location = useLocation()
   const headerVisible = useScrollDirection()
   const { theme, toggleTheme } = useTheme()
+  const isMobile = useMobile()
+  const [menuOpen, setMenuOpen] = createSignal(false)
 
   const linkClass = (path: string, accent?: boolean) => {
     const base = 'vui-header__link'
@@ -138,11 +148,24 @@ export function AppHeader() {
     return classes.join(' ')
   }
 
+  const closeMenu = () => setMenuOpen(false)
+
+  // Close mobile menu on Escape key
+  onMount(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && menuOpen()) {
+        closeMenu()
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    onCleanup(() => document.removeEventListener('keydown', handleKeyDown))
+  })
+
   return (
     <header
       class="vui-header"
       classList={{
-        'vui-header--hidden': !headerVisible(),
+        'vui-header--hidden': !headerVisible() && !menuOpen(),
       }}
     >
       <HeaderWireBorder />
@@ -154,21 +177,94 @@ export function AppHeader() {
           <span class="vui-header__title">LIM</span>
         </Link>
 
-        {/* Right: Nav + Theme Toggle */}
-        <nav class="vui-header__nav">
-          <Link to="/faq" class={linkClass('/faq')}>
+        {/* Desktop nav */}
+        <Show when={!isMobile()}>
+          <nav class="vui-header__nav">
+            <Link to="/faq" class={linkClass('/faq')}>
+              FAQ
+            </Link>
+            <Link to="/curriculum" class={linkClass('/curriculum')}>
+              PLAN
+            </Link>
+            <Link to="/materiales" class={linkClass('/materiales', true)}>
+              MATERIALES
+            </Link>
+            <AuthButton />
+            <ThemeToggle isDark={theme() === 'dark'} onToggle={toggleTheme} />
+          </nav>
+        </Show>
+
+        {/* Mobile hamburger button */}
+        <Show when={isMobile()}>
+          <button
+            onClick={() => setMenuOpen(!menuOpen())}
+            class="vui-header__theme-toggle"
+            aria-expanded={menuOpen()}
+            aria-label={menuOpen() ? 'Cerrar menú' : 'Abrir menú'}
+            style={{ position: 'relative', 'z-index': '210' }}
+          >
+            <Show when={!menuOpen()}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" style={{ stroke: 'var(--color-text)' }} aria-hidden="true">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </Show>
+            <Show when={menuOpen()}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" style={{ stroke: 'var(--color-text)' }} aria-hidden="true">
+                <line x1="6" y1="6" x2="18" y2="18" />
+                <line x1="6" y1="18" x2="18" y2="6" />
+              </svg>
+            </Show>
+          </button>
+        </Show>
+      </div>
+
+      {/* Mobile nav overlay */}
+      <Show when={isMobile() && menuOpen()}>
+        {/* Backdrop */}
+        <div
+          onClick={closeMenu}
+          style={{
+            position: 'fixed',
+            inset: '0',
+            background: 'rgba(0,0,0,0.8)',
+            'z-index': '190',
+          }}
+        />
+        {/* Nav drawer */}
+        <nav style={{
+          position: 'fixed',
+          top: '0',
+          right: '0',
+          width: '280px',
+          height: '100vh',
+          background: 'var(--color-surface-elevated)',
+          'z-index': '200',
+          display: 'flex',
+          'flex-direction': 'column',
+          gap: '8px',
+          padding: '80px 24px 24px',
+          'border-left': '1px solid var(--color-border)',
+          'overflow-y': 'auto',
+        }}>
+          <Link to="/faq" class={linkClass('/faq')} onClick={closeMenu} style={{ 'text-align': 'center' }}>
             FAQ
           </Link>
-          <Link to="/curriculum" class={linkClass('/curriculum')}>
+          <Link to="/curriculum" class={linkClass('/curriculum')} onClick={closeMenu} style={{ 'text-align': 'center' }}>
             PLAN
           </Link>
-          <Link to="/materiales" class={linkClass('/materiales', true)}>
+          <Link to="/materiales" class={linkClass('/materiales', true)} onClick={closeMenu} style={{ 'text-align': 'center' }}>
             MATERIALES
           </Link>
-          <AuthButton />
-          <ThemeToggle isDark={theme() === 'dark'} onToggle={toggleTheme} />
+          <div style={{ 'margin-top': '8px', display: 'flex', 'justify-content': 'center' }}>
+            <AuthButton />
+          </div>
+          <div style={{ display: 'flex', 'justify-content': 'center', 'margin-top': '4px' }}>
+            <ThemeToggle isDark={theme() === 'dark'} onToggle={toggleTheme} />
+          </div>
         </nav>
-      </div>
+      </Show>
     </header>
   )
 }

@@ -2,19 +2,18 @@ import { generateState, generateCodeVerifier } from 'arctic'
 import { createGoogleOAuth } from '../auth/google'
 import { validateSession } from '../auth/session'
 import { getDb } from '../db/index'
+import { getSessionToken, isSecure } from './utils'
 
-export async function handleAuthGoogle(request: Request, env: Record<string, any>): Promise<Response> {
+export async function handleAuthGoogle(request: Request, env: Env): Promise<Response> {
   const url = new URL(request.url)
-  const isSecure = url.protocol === 'https:'
+  const secure = isSecure(request)
 
   // Read returnTo from query param, validate it starts with /
   let returnTo = url.searchParams.get('returnTo') || '/'
   if (!returnTo.startsWith('/')) returnTo = '/'
 
   // If user already has a valid session, skip OAuth and redirect directly
-  const cookieHeader = request.headers.get('cookie') || ''
-  const tokenMatch = cookieHeader.match(/(?:^|;\s*)session_token=([^;]*)/)
-  const token = tokenMatch ? decodeURIComponent(tokenMatch[1]) : null
+  const token = getSessionToken(request)
 
   if (token) {
     const db = getDb(env.DB)
@@ -28,12 +27,13 @@ export async function handleAuthGoogle(request: Request, env: Record<string, any
   }
 
   // No valid session — proceed with OAuth
-  const google = createGoogleOAuth(env.GOOGLE_CLIENT_ID, env.GOOGLE_CLIENT_SECRET, env.GOOGLE_REDIRECT_URI)
+  const redirectUri = new URL('/api/auth/callback', request.url).origin + '/api/auth/callback'
+  const google = createGoogleOAuth(env.GOOGLE_CLIENT_ID, env.GOOGLE_CLIENT_SECRET, redirectUri)
   const state = generateState()
   const codeVerifier = generateCodeVerifier()
   const authUrl = google.createAuthorizationURL(state, codeVerifier, ['openid', 'email', 'profile'])
 
-  const cookieFlags = `HttpOnly; SameSite=Lax; Path=/; Max-Age=600${isSecure ? '; Secure' : ''}`
+  const cookieFlags = `HttpOnly; SameSite=Lax; Path=/; Max-Age=600${secure ? '; Secure' : ''}`
 
   const headers = new Headers()
   headers.set('Location', authUrl.toString())

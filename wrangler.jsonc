@@ -14,13 +14,26 @@
 		{
 			"binding": "DB",
 			"database_name": "lim-db",
-			"database_id": "ec3b8d72-9de1-438d-bd79-7993f02b7429"
+			"database_id": "ec3b8d72-9de1-438d-bd79-7993f02b7429",
+			"migrations_dir": "drizzle"
 		}
 	],
 	"r2_buckets": [
 		{
 			"binding": "MATERIALS_BUCKET",
 			"bucket_name": "lim-materials"
+		}
+	],
+	"ratelimits": [
+		{
+			"name": "AUTH_LIMITER",
+			"namespace_id": "1001",
+			"simple": { "limit": 10, "period": 60 }
+		},
+		{
+			"name": "UPLOAD_LIMITER",
+			"namespace_id": "1002",
+			"simple": { "limit": 5, "period": 60 }
 		}
 	]
 }
